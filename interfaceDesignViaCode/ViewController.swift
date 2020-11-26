@@ -12,7 +12,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-
     //MARK: UIObject Creation
     let v1 = UIView()
     v1.translatesAutoresizingMaskIntoConstraints = false
