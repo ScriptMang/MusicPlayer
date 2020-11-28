@@ -44,7 +44,14 @@ class LibraryVc: UIViewController, UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: self.cellID)
 
+    if cell == nil {
+      cell = UITableViewCell(style: .default, reuseIdentifier: self.cellID)
+      cell.textLabel?.textColor = .red
+    }
+    cell?.textLabel?.text = "Hello There \(indexPath.row)"
+    return cell
   }
 
 }

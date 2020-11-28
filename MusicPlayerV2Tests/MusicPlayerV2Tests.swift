@@ -6,9 +6,8 @@
 //
 
 import XCTest
-@testable import interfaceDesignViaCode
-
-class interfaceDesignViaCodeTests: XCTestCase {
+@testable import musicPlayerV2
+class musicPlayerV2: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -13,8 +13,8 @@
 		74039B252569BFC900F91089 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74039B232569BFC900F91089 /* Main.storyboard */; };
 		74039B272569BFCB00F91089 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74039B262569BFCB00F91089 /* Assets.xcassets */; };
 		74039B2A2569BFCB00F91089 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74039B282569BFCB00F91089 /* LaunchScreen.storyboard */; };
-		74039B352569BFCB00F91089 /* musicPlayerV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74039B342569BFCB00F91089 /* musicPlayerV2Tests.swift */; };
-		74039B402569BFCB00F91089 /* interfaceDesignViaCodeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74039B3F2569BFCB00F91089 /* interfaceDesignViaCodeUITests.swift */; };
+		74039B352569BFCB00F91089 /* MusicPlayerV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74039B342569BFCB00F91089 /* MusicPlayerV2Tests.swift */; };
+		74039B402569BFCB00F91089 /* MusicPlayerV2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74039B3F2569BFCB00F91089 /* MusicPlayerV2UITests.swift */; };
 		744057F1256FCC6C00B1A9BB /* AlbumTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744057F0256FCC6C00B1A9BB /* AlbumTableViewController.swift */; };
 		744D97D9256DB92700D971F9 /* LibraryVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744D97D8256DB92700D971F9 /* LibraryVc.swift */; };
 		748516F1256F4FD8007D22C5 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748516F0256F4FD8007D22C5 /* TrackCell.swift */; };
@@ -49,10 +49,10 @@
 		74039B292569BFCB00F91089 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74039B2B2569BFCB00F91089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74039B302569BFCB00F91089 /* musicPlayerV2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = musicPlayerV2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		74039B342569BFCB00F91089 /* musicPlayerV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = musicPlayerV2Tests.swift; sourceTree = "<group>"; };
+		74039B342569BFCB00F91089 /* MusicPlayerV2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerV2Tests.swift; sourceTree = "<group>"; };
 		74039B362569BFCB00F91089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74039B3B2569BFCB00F91089 /* musicPlayerV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = musicPlayerV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		74039B3F2569BFCB00F91089 /* interfaceDesignViaCodeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = interfaceDesignViaCodeUITests.swift; sourceTree = "<group>"; };
+		74039B3F2569BFCB00F91089 /* MusicPlayerV2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerV2UITests.swift; sourceTree = "<group>"; };
 		74039B412569BFCB00F91089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		744057F0256FCC6C00B1A9BB /* AlbumTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewController.swift; sourceTree = "<group>"; };
 		744D97D8256DB92700D971F9 /* LibraryVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryVc.swift; sourceTree = "<group>"; };
@@ -89,9 +89,9 @@
 		74039B112569BFC900F91089 = {
 			isa = PBXGroup;
 			children = (
-				74039B1C2569BFC900F91089 /* musicPlayerV2 */,
-				74039B332569BFCB00F91089 /* musicPlayerV2Tests */,
-				74039B3E2569BFCB00F91089 /* musicPlayerV2UIITests */,
+				74039B1C2569BFC900F91089 /* MusicPlayerV2 */,
+				74039B332569BFCB00F91089 /* MsicPlayerV2Tests */,
+				74039B3E2569BFCB00F91089 /* MusicPlayerV2UIITests */,
 				74039B1B2569BFC900F91089 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,7 +106,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		74039B1C2569BFC900F91089 /* musicPlayerV2 */ = {
+		74039B1C2569BFC900F91089 /* MusicPlayerV2 */ = {
 			isa = PBXGroup;
 			children = (
 				74039B1D2569BFC900F91089 /* AppDelegate.swift */,
@@ -118,25 +118,25 @@
 				74039B282569BFCB00F91089 /* LaunchScreen.storyboard */,
 				74039B2B2569BFCB00F91089 /* Info.plist */,
 			);
-			path = musicPlayerV2;
+			path = MusicPlayerV2;
 			sourceTree = "<group>";
 		};
-		74039B332569BFCB00F91089 /* musicPlayerV2Tests */ = {
+		74039B332569BFCB00F91089 /* MsicPlayerV2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				74039B342569BFCB00F91089 /* musicPlayerV2Tests.swift */,
+				74039B342569BFCB00F91089 /* MusicPlayerV2Tests.swift */,
 				74039B362569BFCB00F91089 /* Info.plist */,
 			);
-			path = musicPlayerV2Tests;
+			path = MsicPlayerV2Tests;
 			sourceTree = "<group>";
 		};
-		74039B3E2569BFCB00F91089 /* musicPlayerV2UIITests */ = {
+		74039B3E2569BFCB00F91089 /* MusicPlayerV2UIITests */ = {
 			isa = PBXGroup;
 			children = (
-				74039B3F2569BFCB00F91089 /* interfaceDesignViaCodeUITests.swift */,
+				74039B3F2569BFCB00F91089 /* MusicPlayerV2UITests.swift */,
 				74039B412569BFCB00F91089 /* Info.plist */,
 			);
-			path = musicPlayerV2UIITests;
+			path = MusicPlayerV2UIITests;
 			sourceTree = "<group>";
 		};
 		748516F5256F4FE7007D22C5 /* Library */ = {
@@ -229,7 +229,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 74039B152569BFC900F91089 /* Build configuration list for PBXProject "MusicPlayerV2" */;
+			buildConfigurationList = 74039B152569BFC900F91089 /* Build configuration list for PBXProject "musicPlayerV2" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -296,7 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74039B352569BFCB00F91089 /* musicPlayerV2Tests.swift in Sources */,
+				74039B352569BFCB00F91089 /* MusicPlayerV2Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,7 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74039B402569BFCB00F91089 /* interfaceDesignViaCodeUITests.swift in Sources */,
+				74039B402569BFCB00F91089 /* MusicPlayerV2UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +584,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		74039B152569BFC900F91089 /* Build configuration list for PBXProject "MusicPlayerV2" */ = {
+		74039B152569BFC900F91089 /* Build configuration list for PBXProject "musicPlayerV2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				74039B422569BFCB00F91089 /* Debug */,
