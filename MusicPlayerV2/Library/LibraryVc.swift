@@ -7,51 +7,36 @@
 
 import UIKit
 import MediaPlayer
-class LibraryVc: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LibraryVc: UITableViewController {
 
-  override func loadView() {
-      super.loadView()
-    }
+
 
 
       override func viewDidLoad() {
         super.viewDidLoad()
       //MARK: UIObject Creation
-      let library = UIView()
+
+      let libryTableView = UITableView()
+      libryTableView.translatesAutoresizingMaskIntoConstraints = false
       view.backgroundColor = .white
-      library.translatesAutoresizingMaskIntoConstraints = false
-      view.addSubview(library)
+      libryTableView.dataSource = self
+      libryTableView.delegate = self
+      view.addSubview(libryTableView)
 
 //        let child = AlbumTableViewController()
 //        self.addChild(child)
 //        self.view.addSubview(child.view)
 //        child.view.frame = self.view.frame
 //        child.didMove(toParent: self)
-
       }
 
-  let mediaItems = MPMediaQuery.songs().items!
-  let tableview = UITableView()
-  let cellID =  "albumCell"
+   
+
+  // MARK: TableView Methods
+
+  
 
 
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
-  }
 
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 20
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    var cell: UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: self.cellID)
-
-    if cell == nil {
-      cell = UITableViewCell(style: .default, reuseIdentifier: self.cellID)
-      cell.textLabel?.textColor = .red
-    }
-    cell?.textLabel?.text = "Hello There \(indexPath.row)"
-    return cell
-  }
 
 }

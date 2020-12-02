@@ -9,16 +9,65 @@ import UIKit
 import MediaPlayer
 
 class TrackCell: UITableViewCell {
-  var songTitle: UILabel!
-  var artist: UILabel!
-  
-  func setLibraryBodyCellForAlbums(_ track: Song) {
-    songTitle?.text = track.albumTitle
-    artist?.text = track.artist
-  }
+    static let reuseIdentifier = "albumCell"
 
-  func setLibraryBodyCellForSongs(_ track: Song) {
-    songTitle?.text = track.title
-    artist?.text = track.artist
-  }
+    let songTitle = UILabel(frame: .zero)
+    let artist = UILabel(frame: .zero)
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        setupViews()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func setupViews() {
+        songTitle.translatesAutoresizingMaskIntoConstraints = false
+        artist.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(songTitle)
+        contentView.addSubview(artist)
+
+        createCellConstraints()
+    }
+
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        songTitle.translatesAutoresizingMaskIntoConstraints = false
+//        artist.translatesAutoresizingMaskIntoConstraints = false
+//
+//        contentView.addSubview(songTitle)
+//        contentView.addSubview(artist)
+//
+//    }
+
+    func setLibraryBodyCellForAlbums(_ track: Song) {
+        self.songTitle.text = track.albumTitle!
+        self.artist.text = track.artist!
+        self.songTitle.textColor = .black
+        self.artist.textColor = .black
+
+
+    }
+
+    func setLibraryBodyCellForSongs(_ track: Song) {
+        self.songTitle.text = track.title!
+        self.artist.text = track.artist!
+        self.songTitle.textColor = .black
+        self.artist.textColor = .black
+    }
+
+    func createCellConstraints() {
+        NSLayoutConstraint.activate(
+            [
+              songTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+              songTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30),
+              songTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+              songTitle.bottomAnchor.constraint(greaterThanOrEqualTo: artist.topAnchor),
+              artist.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 30)
+            ]
+        )
+    }
 }

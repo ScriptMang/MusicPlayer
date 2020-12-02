@@ -66,7 +66,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
   }
 
   @objc func transitionToLibraryVC() {
-    navigationController?.pushViewController(LibraryVc(), animated: true)
+    navigationController?.pushViewController(LIbraryTableViewController(), animated: true)
   }
 
 }

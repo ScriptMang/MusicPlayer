@@ -9,6 +9,7 @@ import Foundation
 struct Song {
   var albumTitle: String?
   var title: String?
+  var albumArtist: String?
   var artist: String?
   var genre: String?
   var duration: TimeInterval?

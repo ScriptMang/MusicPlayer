@@ -6,12 +6,20 @@
 //
 
 import UIKit
-
+import MediaPlayer
 class LIbraryTableViewController: UITableViewController {
+    let mediaFiles = MPMediaQuery.songs().items!
+    var albumLst = [Song]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupTableView()
+        addAlbumsIntoLst()
+        //        let child = AlbumTableViewController()
+        //        self.addChild(child)
+        //        self.view.addSubview(child.view)
+        //        child.view.frame = self.view.frame
+        //        child.didMove(toParent: self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -19,71 +27,47 @@ class LIbraryTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    private func setupTableView() {
+        tableView.register(TrackCell.self, forCellReuseIdentifier: TrackCell.reuseIdentifier)
+        tableView.rowHeight = 60
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return mediaFiles.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        guard let cell =
+                tableView.dequeueReusableCell(withIdentifier: TrackCell.reuseIdentifier, for: indexPath) as? TrackCell
+        else {
+            fatalError()
+        }
+        let mediaFile = albumLst[indexPath.row]
+        cell.backgroundColor = .white
+        cell.setLibraryBodyCellForSongs(mediaFile)
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func addAlbumsIntoLst() {
+        for media in mediaFiles {
+            let albumTitle = media.albumTitle ?? "AlbumTitle"
+            let songTitle = media.title  ?? "SongTitle"
+            let albumArtist = media.albumArtist ?? "AlbumArtist"
+            let artist = media.albumArtist  ?? "Artist"
+            let genre = media.genre  ?? "AlbumTitle"
+            let trackCount = media.albumTrackCount
+            let trackTime  = media.playbackDuration
+            let track =
+                Song(albumTitle: albumTitle, title: songTitle,
+                     albumArtist: albumArtist, artist: artist,
+                genre: genre, duration: trackTime, trackCount: trackCount)
+            albumLst.append(track)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

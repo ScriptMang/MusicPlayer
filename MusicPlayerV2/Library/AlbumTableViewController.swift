@@ -10,7 +10,6 @@ import UIKit
 class AlbumTableViewController: UITableViewController {
 
     override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
 
