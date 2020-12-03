@@ -29,7 +29,6 @@ class TrackCell: UITableViewCell {
 
         contentView.addSubview(songTitle)
         contentView.addSubview(artist)
-
         createCellConstraints()
     }
 
