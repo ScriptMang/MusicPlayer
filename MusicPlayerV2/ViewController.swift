@@ -22,17 +22,23 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     songTitle.translatesAutoresizingMaskIntoConstraints = false
     songTitle.text = "SongTitle"
     songTitle.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
-    view.addSubview(songTitle)
+
 
     let artist = UILabel()
     artist.translatesAutoresizingMaskIntoConstraints = false
     artist.font = UIFont(name: "Hiragino Mincho ProN W3", size:  25.0)
     artist.text = "Artist"
     artist.sizeToFit()
-    view.addSubview(artist)
 
-    //StackView for Song/Artist Label
 
+  //MARK: StackView for Song/Artist Label
+    let traackStackView = UIStackView(arrangedSubviews: [songTitle, artist])
+    traackStackView.axis = .vertical
+    traackStackView.alignment = .fill
+    traackStackView.distribution = .fillEqually
+    traackStackView.translatesAutoresizingMaskIntoConstraints = false
+    traackStackView.spacing = 0
+    self.view.addSubview(traackStackView)
 
     // AlbumArt
     let musicHouseArt = UIImage(systemName: "music.note.house.fill")
@@ -49,19 +55,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     playButton.setImage(playIcon, for: .normal)
     playButton.setImage(pauseIcon, for: .highlighted)
     playButton.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(playButton)
+
 
     let fastForwardButton = UIButton(type: .system)
     let fastForwardIcon = UIImage(systemName: "forward.fill")
     fastForwardButton.setImage(fastForwardIcon, for: .normal)
     fastForwardButton.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(fastForwardButton)
+
 
     let rewindButton = UIButton(type: .system)
     let rewindIcon = UIImage(systemName: "backward.fill")
     rewindButton.setImage(rewindIcon, for: .normal)
     rewindButton.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(rewindButton)
+
 
     // StackView for Play, Forward, Backward, Pause
     let musicStackView = UIStackView(arrangedSubviews: [rewindButton, playButton, fastForwardButton])
@@ -77,19 +83,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     let shuffleIcon = UIImage(systemName: "shuffle")
     shuffleButton.setImage(shuffleIcon, for: .normal)
     shuffleButton.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(shuffleButton)
 
     let queueButton = UIButton(type: .system)
     let queueIcon = UIImage(systemName: "list.dash")
     queueButton.setImage(queueIcon, for: .normal)
     queueButton.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(queueButton)
 
     let repeatButton = UIButton(type: .system)
     let repeatIcon = UIImage(systemName: "repeat")
     repeatButton.setImage(repeatIcon, for: .normal)
     repeatButton.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(repeatButton)
 
     //MARK: StackView for Song Options
     let musicStackView2 = UIStackView(arrangedSubviews: [repeatButton, shuffleButton, queueButton])
@@ -110,18 +113,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     //MARK: Constraints
     NSLayoutConstraint.activate(
       [
-//        //Song Label
-//        songTitle.leadingAnchor.constraint(lessThanOrEqualTo: v1.leadingAnchor, constant: 50),
-//        songTitle.topAnchor.constraint(equalTo: v1.topAnchor, constant: 540),
-//        songTitle.trailingAnchor.constraint(lessThanOrEqualTo: v1.trailingAnchor, constant: 200),
-//
-//        // Artist Label
-//        artist.leadingAnchor.constraint(greaterThanOrEqualTo: v1.leadingAnchor, constant: 50),
-//        artist.topAnchor.constraint(greaterThanOrEqualTo: songTitle.bottomAnchor, constant: 20),
-//        artist.bottomAnchor.constraint(equalTo: v1.bottomAnchor, constant: 200),
+        //TrackStackView
+        traackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 460),
+        traackStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  50),
+        traackStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -140),
 
-
-        
         //Album Art
         albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 100),
         albumArt.leadingAnchor.constraint(equalTo: v1.leadingAnchor, constant: 50),
