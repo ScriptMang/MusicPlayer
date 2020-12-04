@@ -20,20 +20,25 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     // MARK: Music TextLabels
     let songTitle = UILabel()
     songTitle.translatesAutoresizingMaskIntoConstraints = false
-    songTitle.text = "Hello IPhone User"
-    songTitle.sizeToFit()
+    songTitle.text = "SongTitle"
+    songTitle.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
     view.addSubview(songTitle)
 
     let artist = UILabel()
     artist.translatesAutoresizingMaskIntoConstraints = false
-    artist.text = "Welcome to constraints"
+    artist.font = UIFont(name: "Hiragino Mincho ProN W3", size:  25.0)
+    artist.text = "Artist"
     artist.sizeToFit()
     view.addSubview(artist)
+
+    //StackView for Song/Artist Label
+
 
     // AlbumArt
     let musicHouseArt = UIImage(systemName: "music.note.house.fill")
     let albumArt = UIImageView(image: musicHouseArt)
     albumArt.translatesAutoresizingMaskIntoConstraints = false
+    albumArt.backgroundColor  = .white
     view.addSubview(albumArt)
 
     // MARK: Music Control Buttons
@@ -42,7 +47,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     let playIcon = UIImage(systemName: "play.fill", withConfiguration: playIconConfig)
     let pauseIcon = UIImage(systemName: "pause.fill")
     playButton.setImage(playIcon, for: .normal)
-    playButton.setImage(pauseIcon, for: .selected)
+    playButton.setImage(pauseIcon, for: .highlighted)
     playButton.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(playButton)
 
@@ -67,6 +72,34 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     musicStackView.spacing = 0
     self.view.addSubview(musicStackView)
 
+   // Song Options
+    let shuffleButton = UIButton(type: .system)
+    let shuffleIcon = UIImage(systemName: "shuffle")
+    shuffleButton.setImage(shuffleIcon, for: .normal)
+    shuffleButton.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(shuffleButton)
+
+    let queueButton = UIButton(type: .system)
+    let queueIcon = UIImage(systemName: "list.dash")
+    queueButton.setImage(queueIcon, for: .normal)
+    queueButton.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(queueButton)
+
+    let repeatButton = UIButton(type: .system)
+    let repeatIcon = UIImage(systemName: "repeat")
+    repeatButton.setImage(repeatIcon, for: .normal)
+    repeatButton.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(repeatButton)
+
+    //MARK: StackView for Song Options
+    let musicStackView2 = UIStackView(arrangedSubviews: [repeatButton, shuffleButton, queueButton])
+    musicStackView2.axis = .horizontal
+    musicStackView2.alignment = .fill
+    musicStackView2.distribution = .fillEqually
+    musicStackView2.translatesAutoresizingMaskIntoConstraints = false
+    musicStackView2.spacing = 0
+    self.view.addSubview(musicStackView2)
+
     let marginLayoutGuide = self.view.layoutMarginsGuide
     let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
 
@@ -77,17 +110,18 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     //MARK: Constraints
     NSLayoutConstraint.activate(
       [
-        //Song Label
-        songTitle.leadingAnchor.constraint(lessThanOrEqualTo: v1.leadingAnchor, constant: 120),
-        songTitle.centerYAnchor.constraint(equalTo: v1.topAnchor, constant:  500),
-        songTitle.trailingAnchor.constraint(lessThanOrEqualTo: v1.trailingAnchor, constant: 200),
+//        //Song Label
+//        songTitle.leadingAnchor.constraint(lessThanOrEqualTo: v1.leadingAnchor, constant: 50),
+//        songTitle.topAnchor.constraint(equalTo: v1.topAnchor, constant: 540),
+//        songTitle.trailingAnchor.constraint(lessThanOrEqualTo: v1.trailingAnchor, constant: 200),
+//
+//        // Artist Label
+//        artist.leadingAnchor.constraint(greaterThanOrEqualTo: v1.leadingAnchor, constant: 50),
+//        artist.topAnchor.constraint(greaterThanOrEqualTo: songTitle.bottomAnchor, constant: 20),
+//        artist.bottomAnchor.constraint(equalTo: v1.bottomAnchor, constant: 200),
 
-        // Artist Label
-        artist.leadingAnchor.constraint(greaterThanOrEqualTo: v1.leadingAnchor, constant: 100),
-        artist.topAnchor.constraint(greaterThanOrEqualTo: songTitle.bottomAnchor, constant: 10),
-        artist.bottomAnchor.constraint(equalTo: v1.bottomAnchor, constant: 200),
-        artist.trailingAnchor.constraint(equalTo: v1.trailingAnchor, constant: 200),
 
+        
         //Album Art
         albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 100),
         albumArt.leadingAnchor.constraint(equalTo: v1.leadingAnchor, constant: 50),
@@ -95,10 +129,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         albumArt.widthAnchor.constraint(equalToConstant:  320),
 
         //MusicPlayer Horizontal StackView
-        musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 80),
-        musicStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor),
+        musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 120),
+        musicStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  130),
         musicStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-
      ]
     )
     // Do any additional setup after loading the view.
