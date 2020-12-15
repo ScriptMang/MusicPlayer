@@ -63,7 +63,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     trackStackView.alignment = .fill
     trackStackView.distribution = .equalSpacing
     trackStackView.translatesAutoresizingMaskIntoConstraints = false
-    trackStackView.spacing = 8
+    trackStackView.spacing = 15
     self.view.addSubview(trackStackView)
 
     // AlbumArt
@@ -83,17 +83,38 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     playButton.translatesAutoresizingMaskIntoConstraints = false
 
     let fastForwardButton = UIButton(type: .system)
-    let fastForwardIcon = UIImage(systemName: "forward.fill")
+    let fastForwardIconConfig = UIImage.SymbolConfiguration(pointSize: 30)
+    let fastForwardIcon = UIImage(systemName: "forward.fill", withConfiguration: fastForwardIconConfig)
     fastForwardButton.setImage(fastForwardIcon, for: .normal)
     fastForwardButton.translatesAutoresizingMaskIntoConstraints = false
 
     let rewindButton = UIButton(type: .system)
-    let rewindIcon = UIImage(systemName: "backward.fill")
+    let rewindButtonConfig = UIImage.SymbolConfiguration(pointSize: 30)
+    let rewindIcon = UIImage(systemName: "backward.fill", withConfiguration: rewindButtonConfig)
     rewindButton.setImage(rewindIcon, for: .normal)
     rewindButton.translatesAutoresizingMaskIntoConstraints = false
 
+    // Song Options
+    let shuffleButton = UIButton(type: .system)
+    let shuffleButtonConfig = UIImage.SymbolConfiguration(pointSize: 30)
+    let shuffleIcon = UIImage(systemName: "shuffle", withConfiguration: shuffleButtonConfig)
+    shuffleButton.setImage(shuffleIcon, for: .normal)
+    shuffleButton.translatesAutoresizingMaskIntoConstraints = false
+
+    let queueButton = UIButton(type: .system)
+    let queueButtonConfig = UIImage.SymbolConfiguration(pointSize: 30)
+    let queueIcon = UIImage(systemName: "list.dash", withConfiguration: queueButtonConfig)
+    queueButton.setImage(queueIcon, for: .normal)
+    queueButton.translatesAutoresizingMaskIntoConstraints = false
+
+    let repeatButton = UIButton(type: .system)
+    let repeatButtonConfig = UIImage.SymbolConfiguration(pointSize: 30)
+    let repeatIcon = UIImage(systemName: "repeat", withConfiguration: repeatButtonConfig)
+    repeatButton.setImage(repeatIcon, for: .normal)
+    repeatButton.translatesAutoresizingMaskIntoConstraints = false
+
     // StackView for Play, Forward, Backward, Pause
-    let musicStackView = UIStackView(arrangedSubviews: [rewindButton, playButton, fastForwardButton])
+    let musicStackView = UIStackView(arrangedSubviews: [rewindButton, playButton, fastForwardButton, repeatButton, shuffleButton, queueButton])
     musicStackView.axis = .horizontal
     musicStackView.alignment = .fill
     musicStackView.distribution = .fillEqually
@@ -101,30 +122,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     musicStackView.spacing = 0
     self.view.addSubview(musicStackView)
 
-   // Song Options
-    let shuffleButton = UIButton(type: .system)
-    let shuffleIcon = UIImage(systemName: "shuffle")
-    shuffleButton.setImage(shuffleIcon, for: .normal)
-    shuffleButton.translatesAutoresizingMaskIntoConstraints = false
-
-    let queueButton = UIButton(type: .system)
-    let queueIcon = UIImage(systemName: "list.dash")
-    queueButton.setImage(queueIcon, for: .normal)
-    queueButton.translatesAutoresizingMaskIntoConstraints = false
-
-    let repeatButton = UIButton(type: .system)
-    let repeatIcon = UIImage(systemName: "repeat")
-    repeatButton.setImage(repeatIcon, for: .normal)
-    repeatButton.translatesAutoresizingMaskIntoConstraints = false
-
-    //MARK: StackView for Song Options
-    let musicStackView2 = UIStackView(arrangedSubviews: [repeatButton, shuffleButton, queueButton])
-    musicStackView2.axis = .horizontal
-    musicStackView2.alignment = .fill
-    musicStackView2.distribution = .fillEqually
-    musicStackView2.translatesAutoresizingMaskIntoConstraints = false
-    musicStackView2.spacing = 0
-    self.view.addSubview(musicStackView2)
+//    //MARK: StackView for Song Options
+//    let musicStackView2 = UIStackView(arrangedSubviews: [repeatButton, shuffleButton, queueButton])
+//    musicStackView2.axis = .horizontal
+//    musicStackView2.alignment = .fill
+//    musicStackView2.distribution = .fillEqually
+//    musicStackView2.translatesAutoresizingMaskIntoConstraints = false
+//    musicStackView2.spacing = 0
+//    self.view.addSubview(musicStackView2)
 
     let marginLayoutGuide = self.view.layoutMarginsGuide
     let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
@@ -139,7 +144,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         //TrackStackView
         trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 390),
         trackStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  30),
-//        trackStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -140),
 
         //Album Art
         albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 100),
@@ -155,15 +159,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         //ProgressStackView
         progressStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 30),
         progressStackView.trailingAnchor.constraint(equalTo: marginLayoutGuide.trailingAnchor, constant: 42),
-        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 190),
+        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 180),
 
         // Inside the PorgressStackView
         progressBar.widthAnchor.constraint(equalToConstant: 250),
         progressBar.heightAnchor.constraint(equalToConstant: 2),
 
         // MusicStack2
-        musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  540),
-        musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 230)
+//        musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  540),
+//        musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 230)
      ]
     )
     // Do any additional setup after loading the view.
