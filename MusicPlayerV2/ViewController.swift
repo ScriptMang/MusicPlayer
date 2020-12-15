@@ -23,22 +23,48 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     songTitle.text = "SongTitle"
     songTitle.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
 
-
     let artist = UILabel()
     artist.translatesAutoresizingMaskIntoConstraints = false
     artist.font = UIFont(name: "Hiragino Mincho ProN W3", size:  25.0)
     artist.text = "Artist"
     artist.sizeToFit()
 
+    let startTime = UILabel()
+    startTime.translatesAutoresizingMaskIntoConstraints = false
+    startTime.font = UIFont(name: "Hiragino Mincho ProN W3", size:  15.0)
+    startTime.text = "0:00"
+    startTime.sizeToFit()
+
+    let endTime = UILabel()
+    endTime.translatesAutoresizingMaskIntoConstraints = false
+    endTime.font = UIFont(name: "Hiragino Mincho ProN W3", size: 15.0)
+    endTime.text = " /0:00"
+    endTime.sizeToFit()
+
+    //MARK: StackView for Music ProgressBar
+    let progressBar = UIProgressView(progressViewStyle: .bar)
+    progressBar.translatesAutoresizingMaskIntoConstraints = false
+    progressBar.progress = 0.10
+    progressBar.progressTintColor = .white
+    progressBar.backgroundColor = .gray
+
+    let progressStackView = UIStackView(arrangedSubviews: [startTime, progressBar, endTime])
+    progressStackView.axis = .horizontal
+    progressStackView.alignment = .center
+    progressStackView.distribution = .fillProportionally
+    progressStackView.translatesAutoresizingMaskIntoConstraints = false
+//    progressStackView.backgroundColor = .white
+    self.view.addSubview(progressStackView)
+    progressStackView.sizeToFit()
 
   //MARK: StackView for Song/Artist Label
-    let traackStackView = UIStackView(arrangedSubviews: [songTitle, artist])
-    traackStackView.axis = .vertical
-    traackStackView.alignment = .fill
-    traackStackView.distribution = .fillEqually
-    traackStackView.translatesAutoresizingMaskIntoConstraints = false
-    traackStackView.spacing = 0
-    self.view.addSubview(traackStackView)
+    let trackStackView = UIStackView(arrangedSubviews: [songTitle, artist])
+    trackStackView.axis = .vertical
+    trackStackView.alignment = .fill
+    trackStackView.distribution = .fillEqually
+    trackStackView.translatesAutoresizingMaskIntoConstraints = false
+    trackStackView.spacing = 0
+    self.view.addSubview(trackStackView)
 
     // AlbumArt
     let musicHouseArt = UIImage(systemName: "music.note.house.fill")
@@ -56,18 +82,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     playButton.setImage(pauseIcon, for: .highlighted)
     playButton.translatesAutoresizingMaskIntoConstraints = false
 
-
     let fastForwardButton = UIButton(type: .system)
     let fastForwardIcon = UIImage(systemName: "forward.fill")
     fastForwardButton.setImage(fastForwardIcon, for: .normal)
     fastForwardButton.translatesAutoresizingMaskIntoConstraints = false
 
-
     let rewindButton = UIButton(type: .system)
     let rewindIcon = UIImage(systemName: "backward.fill")
     rewindButton.setImage(rewindIcon, for: .normal)
     rewindButton.translatesAutoresizingMaskIntoConstraints = false
-
 
     // StackView for Play, Forward, Backward, Pause
     let musicStackView = UIStackView(arrangedSubviews: [rewindButton, playButton, fastForwardButton])
@@ -114,9 +137,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     NSLayoutConstraint.activate(
       [
         //TrackStackView
-        traackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 460),
-        traackStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  50),
-        traackStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -140),
+        trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 460),
+        trackStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  30),
+        trackStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -140),
 
         //Album Art
         albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 100),
@@ -127,7 +150,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         //MusicPlayer Horizontal StackView
         musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 120),
         musicStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  130),
-        musicStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        musicStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+
+        //ProgressStackView
+        progressStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 30),
+        progressStackView.trailingAnchor.constraint(equalTo: marginLayoutGuide.trailingAnchor, constant: 42),
+        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 118),
+
+        // Inside the PorgressStackView
+        progressBar.widthAnchor.constraint(equalToConstant: 250),
+        progressBar.heightAnchor.constraint(equalToConstant: 2)
+//        progressBar.leadingAnchor.constraint(lessThanOrEqualTo: startTime.trailingAnchor, constant: -100),
+//        progressBar.trailingAnchor.constraint(equalTo: endTime.leadingAnchor, constant: 10),
+//        progressBar.heightAnchor.constraint(equalToConstant: 1)
      ]
     )
     // Do any additional setup after loading the view.
