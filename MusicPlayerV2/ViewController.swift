@@ -18,6 +18,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     view.addSubview(v1)
 
     // MARK: Music TextLabels
+
+    let albumTitle = UILabel()
+    albumTitle.translatesAutoresizingMaskIntoConstraints = false
+    albumTitle.text = "AlbumTitle"
+    albumTitle.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
+    albumTitle.sizeToFit()
+    view.addSubview(albumTitle)
+
     let songTitle = UILabel()
     songTitle.translatesAutoresizingMaskIntoConstraints = false
     songTitle.text = "SongTitle"
@@ -31,14 +39,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
     let startTime = UILabel()
     startTime.translatesAutoresizingMaskIntoConstraints = false
-    startTime.font = UIFont(name: "Hiragino Mincho ProN W3", size:  15.0)
+    startTime.font = UIFont(name: "Hiragino Mincho ProN W3", size:  17.0)
     startTime.text = "0:00"
     startTime.sizeToFit()
 
     let endTime = UILabel()
     endTime.translatesAutoresizingMaskIntoConstraints = false
-    endTime.font = UIFont(name: "Hiragino Mincho ProN W3", size: 15.0)
-    endTime.text = " /0:00"
+    endTime.font = UIFont(name: "Hiragino Mincho ProN W3", size: 17.0)
+    endTime.text = " 0:00"
     endTime.sizeToFit()
 
     //MARK: StackView for Music ProgressBar
@@ -174,8 +182,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     //MARK: Constraints
     NSLayoutConstraint.activate(
       [
+
+        // Album Title
+        albumTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+        albumTitle.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 50),
+        albumTitle.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -120),
+
         //TrackStackView
-        trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 450),
+        trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 490),
         trackStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  30),
 
         //Volume StackView
@@ -184,27 +198,28 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         volumeStack.bottomAnchor.constraint(greaterThanOrEqualTo:  trackStackView.bottomAnchor),
 
         //Album Art
-        albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 100),
+        albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 120),
         albumArt.leadingAnchor.constraint(equalTo: v1.leadingAnchor, constant: 50),
         albumArt.heightAnchor.constraint(equalToConstant:  320),
         albumArt.widthAnchor.constraint(equalToConstant:  320),
 
         //MusicPlayer Horizontal StackView
-        musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 370),
+        musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 390),
         musicStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  30),
         musicStackView.bottomAnchor.constraint(lessThanOrEqualTo: self.view.bottomAnchor),
 
         //ProgressStackView
+        progressStackView.topAnchor.constraint(equalTo: trackStackView.bottomAnchor, constant: 5),
         progressStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 30),
         progressStackView.trailingAnchor.constraint(equalTo: marginLayoutGuide.trailingAnchor, constant: 42),
-        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 120),
+        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 70),
 
         // Inside the PorgressStackView
         progressBar.widthAnchor.constraint(equalToConstant: 250),
-        progressBar.heightAnchor.constraint(equalToConstant: 2),
+        progressBar.heightAnchor.constraint(equalToConstant: 3),
 
          //MusicStack2
-        musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  376),
+        musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  400),
         musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 230)
 
 
