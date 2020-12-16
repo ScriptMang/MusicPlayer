@@ -62,7 +62,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     trackStackView.alignment = .fill
     trackStackView.distribution = .equalSpacing
     trackStackView.translatesAutoresizingMaskIntoConstraints = false
-    trackStackView.spacing = 20
+    trackStackView.spacing = 15
+//    trackStackView.backgroundColor = .blue
     self.view.addSubview(trackStackView)
 
     // AlbumArt
@@ -74,6 +75,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
     // MARK: Music Control Buttons
     let playButton = UIButton(type: .system)
+    playButton.tintColor = .white
     let playIconConfig = UIImage.SymbolConfiguration(pointSize: 40)
     let playIcon = UIImage(systemName: "play.fill", withConfiguration: playIconConfig)
     let pauseIcon = UIImage(systemName: "pause.fill")
@@ -82,12 +84,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     playButton.translatesAutoresizingMaskIntoConstraints = false
 
     let fastForwardButton = UIButton(type: .system)
+    fastForwardButton.tintColor = .white
     let fastForwardIconConfig = UIImage.SymbolConfiguration(pointSize: 20)
     let fastForwardIcon = UIImage(systemName: "forward.fill", withConfiguration: fastForwardIconConfig)
     fastForwardButton.setImage(fastForwardIcon, for: .normal)
     fastForwardButton.translatesAutoresizingMaskIntoConstraints = false
 
     let rewindButton = UIButton(type: .system)
+    rewindButton.tintColor = .white
     let rewindButtonConfig = UIImage.SymbolConfiguration(pointSize: 20)
     let rewindIcon = UIImage(systemName: "backward.fill", withConfiguration: rewindButtonConfig)
     rewindButton.setImage(rewindIcon, for: .normal)
@@ -95,18 +99,21 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
     // Song Options
     let shuffleButton = UIButton(type: .system)
+    shuffleButton.tintColor = .white
     let shuffleButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
     let shuffleIcon = UIImage(systemName: "shuffle", withConfiguration: shuffleButtonConfig)
     shuffleButton.setImage(shuffleIcon, for: .normal)
     shuffleButton.translatesAutoresizingMaskIntoConstraints = false
 
     let queueButton = UIButton(type: .system)
+    queueButton.tintColor = .white
     let queueButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
     let queueIcon = UIImage(systemName: "list.dash", withConfiguration: queueButtonConfig)
     queueButton.setImage(queueIcon, for: .normal)
     queueButton.translatesAutoresizingMaskIntoConstraints = false
 
     let repeatButton = UIButton(type: .system)
+    repeatButton.tintColor = .white
     let repeatButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
     let repeatIcon = UIImage(systemName: "repeat", withConfiguration: repeatButtonConfig)
     repeatButton.setImage(repeatIcon, for: .normal)
@@ -117,6 +124,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     musicStackView.axis = .horizontal
     musicStackView.alignment = .fill
     musicStackView.distribution = .fillEqually
+//  musicStackView.backgroundColor = .blue
     musicStackView.translatesAutoresizingMaskIntoConstraints = false
     musicStackView.spacing = 0
     self.view.addSubview(musicStackView)
@@ -130,6 +138,31 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     musicStackView2.translatesAutoresizingMaskIntoConstraints = false
     musicStackView2.spacing = 0
     self.view.addSubview(musicStackView2)
+
+    //MARK: Staview for Volume
+    let volumeButton = UIButton(type: .system)
+    volumeButton.tintColor = .white
+    let volumeButtonConfig = UIImage.SymbolConfiguration(pointSize: 32)
+    let volumeIcon = UIImage(systemName: "speaker.wave.2.circle", withConfiguration: volumeButtonConfig)
+    volumeButton.setImage(volumeIcon, for: .normal)
+    volumeButton.translatesAutoresizingMaskIntoConstraints = false
+
+
+    let volumePercentage = UILabel()
+    volumePercentage.translatesAutoresizingMaskIntoConstraints = false
+    volumePercentage.text = "100%"
+    volumePercentage.textAlignment = .center
+
+    let volumeStack = UIStackView(arrangedSubviews: [volumeButton, volumePercentage])
+    volumeStack.axis = .vertical
+    volumeStack.alignment = .fill
+    volumeStack.distribution =  .fill
+    volumeStack.translatesAutoresizingMaskIntoConstraints = false
+    volumeStack.spacing = 5
+//    volumeStack.backgroundColor = .blue
+    self.view.addSubview(volumeStack)
+
+
 
     let marginLayoutGuide = self.view.layoutMarginsGuide
     let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
@@ -145,6 +178,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 450),
         trackStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  30),
 
+        //Volume StackView
+        volumeStack.topAnchor.constraint(equalTo: trackStackView.topAnchor),
+        volumeStack.leadingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.leadingAnchor, constant:  280),
+        volumeStack.bottomAnchor.constraint(greaterThanOrEqualTo:  trackStackView.bottomAnchor),
+
         //Album Art
         albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 100),
         albumArt.leadingAnchor.constraint(equalTo: v1.leadingAnchor, constant: 50),
@@ -152,14 +190,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
         albumArt.widthAnchor.constraint(equalToConstant:  320),
 
         //MusicPlayer Horizontal StackView
-        musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 115),
+        musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 370),
         musicStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  30),
-        musicStackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        musicStackView.bottomAnchor.constraint(lessThanOrEqualTo: self.view.bottomAnchor),
 
         //ProgressStackView
         progressStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 30),
         progressStackView.trailingAnchor.constraint(equalTo: marginLayoutGuide.trailingAnchor, constant: 42),
-        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 105),
+        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 120),
 
         // Inside the PorgressStackView
         progressBar.widthAnchor.constraint(equalToConstant: 250),
@@ -167,7 +205,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
          //MusicStack2
         musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  376),
-        musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 234)
+        musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 230)
+
+
      ]
     )
     // Do any additional setup after loading the view.
