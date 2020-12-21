@@ -26,6 +26,8 @@ class TrackCell: UITableViewCell {
     func setupViews() {
         songTitle.translatesAutoresizingMaskIntoConstraints = false
         artist.translatesAutoresizingMaskIntoConstraints = false
+        self.songTitle.textColor = .white
+        self.artist.textColor = .white
 
         contentView.addSubview(songTitle)
         contentView.addSubview(artist)
@@ -45,17 +47,11 @@ class TrackCell: UITableViewCell {
     func setLibraryBodyCellForAlbums(_ track: Song) {
         self.songTitle.text = track.albumTitle!
         self.artist.text = track.artist!
-        self.songTitle.textColor = .black
-        self.artist.textColor = .black
-
-
     }
 
     func setLibraryBodyCellForSongs(_ track: Song) {
         self.songTitle.text = track.title!
         self.artist.text = track.artist!
-        self.songTitle.textColor = .black
-        self.artist.textColor = .black
     }
 
     func createCellConstraints() {

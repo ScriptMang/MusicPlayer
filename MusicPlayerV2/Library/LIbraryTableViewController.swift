@@ -49,7 +49,7 @@ class LIbraryTableViewController: UITableViewController {
             fatalError()
         }
         let mediaFile = albumLst[indexPath.row]
-        cell.backgroundColor = .white
+        cell.tintColor = .white
         cell.setLibraryBodyCellForSongs(mediaFile)
         return cell
     }
