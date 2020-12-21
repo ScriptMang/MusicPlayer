@@ -171,6 +171,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     self.view.addSubview(volumeStack)
 
 
+    //MARK: Volume Touchbars
+    let touchBarStack = UIStackView()
+    touchBarStack.axis = .horizontal
+    touchBarStack.distribution = .equalSpacing
+    touchBarStack.spacing = 4
+    touchBarStack.sizeToFit()
+    createVolumeBar(volumeBarStack: touchBarStack)
+
+
+
 
     let marginLayoutGuide = self.view.layoutMarginsGuide
     let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
@@ -220,13 +230,27 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
          //MusicStack2
         musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  400),
-        musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 230)
+        musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 230),
 
-
+        //VolumeTouchBar
+        safeAreaLayoutGuide.bottomAnchor.constraint(equalTo:  touchBarStack.bottomAnchor, constant: 30),
+        touchBarStack.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 30)
      ]
     )
     // Do any additional setup after loading the view.
   }
+
+    func createVolumeBar(volumeBarStack: UIStackView) {
+        volumeBarStack.translatesAutoresizingMaskIntoConstraints = false
+        for  _ in 0...9 {
+            let volumeBarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 6, height: 20))
+            volumeBarButton.translatesAutoresizingMaskIntoConstraints = false
+            volumeBarButton.backgroundColor = .white
+            volumeBarStack.addArrangedSubview(volumeBarButton)
+            self.view.addSubview(volumeBarStack)
+        }
+
+    }
 
     //MARK: Push to a LibraryTableViewController
   @objc func transitionToLibraryVC() {
