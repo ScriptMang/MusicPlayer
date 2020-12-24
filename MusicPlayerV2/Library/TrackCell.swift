@@ -34,16 +34,6 @@ class TrackCell: UITableViewCell {
         createCellConstraints()
     }
 
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        songTitle.translatesAutoresizingMaskIntoConstraints = false
-//        artist.translatesAutoresizingMaskIntoConstraints = false
-//
-//        contentView.addSubview(songTitle)
-//        contentView.addSubview(artist)
-//
-//    }
-
     func setLibraryBodyCellForAlbums(_ track: Song) {
         self.songTitle.text = track.albumTitle!
         self.artist.text = track.artist!
