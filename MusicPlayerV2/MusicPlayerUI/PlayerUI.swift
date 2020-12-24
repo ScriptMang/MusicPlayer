@@ -8,13 +8,77 @@
 import UIKit
 
 class PlayerUI: UIViewController {
+    //MARK: Buttons Initialization
+
+    private lazy var playButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+
+        let playIconConfig = UIImage.SymbolConfiguration(pointSize: 40)
+        let playIcon = UIImage(systemName: "play.fill", withConfiguration: playIconConfig)
+        let pauseIcon = UIImage(systemName: "pause.fill",  withConfiguration: playIconConfig)
+
+        button.setImage(playIcon, for: .normal)
+        button.setImage(pauseIcon, for: .highlighted)
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var fastForwardButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        let fastForwardIconConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let fastForwardIcon = UIImage(systemName: "forward.fill", withConfiguration: fastForwardIconConfig)
+        button.setImage(fastForwardIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var rewindButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        let rewindButtonIconConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let rewindIcon = UIImage(systemName: "backward.fill", withConfiguration: rewindButtonIconConfig)
+        button.setImage(rewindIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+
+    private lazy var shuffleButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        let shuffleButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let shuffleIcon = UIImage(systemName: "shuffle", withConfiguration: shuffleButtonConfig)
+        button.setImage(shuffleIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var queueButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        let shuffleButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let shuffleIcon = UIImage(systemName: "shuffle", withConfiguration: shuffleButtonConfig)
+        button.setImage(shuffleIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+
+    }()
+
+    private lazy var repeatButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        let repeatButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let repeatIcon = UIImage(systemName: "repeat", withConfiguration: repeatButtonConfig)
+        button.setImage(repeatIcon, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let v1 = UIView()
-        v1.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(v1)
 
         // AlbumArt
         let musicHouseArt = UIImage(systemName: "music.note.house.fill")
@@ -22,52 +86,6 @@ class PlayerUI: UIViewController {
         albumArt.translatesAutoresizingMaskIntoConstraints = false
         albumArt.backgroundColor  = .white
         view.addSubview(albumArt)
-        
-        // MARK: Music Control Buttons
-        let playButton = UIButton(type: .system)
-        playButton.tintColor = .white
-        let playIconConfig = UIImage.SymbolConfiguration(pointSize: 40)
-        let playIcon = UIImage(systemName: "play.fill", withConfiguration: playIconConfig)
-        let pauseIcon = UIImage(systemName: "pause.fill")
-        playButton.setImage(playIcon, for: .normal)
-        playButton.setImage(pauseIcon, for: .highlighted)
-        playButton.translatesAutoresizingMaskIntoConstraints = false
-
-        let fastForwardButton = UIButton(type: .system)
-        fastForwardButton.tintColor = .white
-        let fastForwardIconConfig = UIImage.SymbolConfiguration(pointSize: 20)
-        let fastForwardIcon = UIImage(systemName: "forward.fill", withConfiguration: fastForwardIconConfig)
-        fastForwardButton.setImage(fastForwardIcon, for: .normal)
-        fastForwardButton.translatesAutoresizingMaskIntoConstraints = false
-
-        let rewindButton = UIButton(type: .system)
-        rewindButton.tintColor = .white
-        let rewindButtonConfig = UIImage.SymbolConfiguration(pointSize: 20)
-        let rewindIcon = UIImage(systemName: "backward.fill", withConfiguration: rewindButtonConfig)
-        rewindButton.setImage(rewindIcon, for: .normal)
-        rewindButton.translatesAutoresizingMaskIntoConstraints = false
-
-        // Song Options
-        let shuffleButton = UIButton(type: .system)
-        shuffleButton.tintColor = .white
-        let shuffleButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
-        let shuffleIcon = UIImage(systemName: "shuffle", withConfiguration: shuffleButtonConfig)
-        shuffleButton.setImage(shuffleIcon, for: .normal)
-        shuffleButton.translatesAutoresizingMaskIntoConstraints = false
-
-        let queueButton = UIButton(type: .system)
-        queueButton.tintColor = .white
-        let queueButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
-        let queueIcon = UIImage(systemName: "list.dash", withConfiguration: queueButtonConfig)
-        queueButton.setImage(queueIcon, for: .normal)
-        queueButton.translatesAutoresizingMaskIntoConstraints = false
-
-        let repeatButton = UIButton(type: .system)
-        repeatButton.tintColor = .white
-        let repeatButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
-        let repeatIcon = UIImage(systemName: "repeat", withConfiguration: repeatButtonConfig)
-        repeatButton.setImage(repeatIcon, for: .normal)
-        repeatButton.translatesAutoresizingMaskIntoConstraints = false
 
         // StackView for Play, Forward, Backward, Pause
         let musicStackView = UIStackView(arrangedSubviews: [rewindButton, playButton, fastForwardButton])
@@ -75,8 +93,8 @@ class PlayerUI: UIViewController {
         musicStackView.alignment = .fill
         musicStackView.distribution = .fillEqually
         musicStackView.translatesAutoresizingMaskIntoConstraints = false
-        musicStackView.spacing = 0
-        self.view.addSubview(musicStackView)
+        musicStackView.spacing = 3
+        view.addSubview(musicStackView)
 
         //MARK: StackView for Song Options
         let musicStackView2 = UIStackView(arrangedSubviews: [repeatButton, shuffleButton, queueButton])
@@ -85,22 +103,25 @@ class PlayerUI: UIViewController {
         musicStackView2.distribution = .fillEqually
         musicStackView2.translatesAutoresizingMaskIntoConstraints = false
         musicStackView2.spacing = 0
-        self.view.addSubview(musicStackView2)
+        view.addSubview(musicStackView2)
 
-        let marginLayoutGuide = self.view.layoutMarginsGuide
-        let safeAreaLayoutGuide = self.view.safeAreaLayoutGuide
+        let marginLayoutGuide = view.layoutMarginsGuide
+        let safeAreaLayoutGuide = view.safeAreaLayoutGuide
+
+        let controlsView = PlayerControlsView(frame: .zero)
+        view.addSubview(controlsView)
 
         NSLayoutConstraint.activate( [
             // Album Art
-            albumArt.topAnchor.constraint(equalTo: v1.topAnchor, constant: 120),
-            albumArt.leadingAnchor.constraint(equalTo: v1.leadingAnchor, constant: 50),
+            albumArt.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            albumArt.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             albumArt.heightAnchor.constraint(equalToConstant:  320),
             albumArt.widthAnchor.constraint(equalToConstant:  320),
 
             //MusicPlayer Horizontal StackView
             musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 450),
             musicStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  50),
-            musicStackView.bottomAnchor.constraint(lessThanOrEqualTo: self.view.bottomAnchor),
+            musicStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
 
             //MusicStack2
             musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  460),
