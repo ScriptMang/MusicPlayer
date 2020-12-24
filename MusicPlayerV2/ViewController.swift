@@ -14,20 +14,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
     //MARK: UIObject Creation
     let playerView = PlayerUI().view!
-    let trackView = TrackUI().view!
-    let volumeView = VolumeUI().view!
-
     self.view.addSubview(playerView)
-    self.view.addSubview(trackView)
-    self.view.addSubview(volumeView)
-
     view.backgroundColor = .black
+
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Library", style: .plain, target: self, action: #selector(transitionToLibraryVC))
   }
 
-    //MARK: Push to a LibraryTableViewController
+//MARK: Push to a LibraryTableViewController
   @objc func transitionToLibraryVC() {
-    navigationController?.pushViewController(LIbraryTableViewController(), animated: true)
+    navigationController?.pushViewController(LIbraryTableViewController(), animated: false)
   }
 
 }
