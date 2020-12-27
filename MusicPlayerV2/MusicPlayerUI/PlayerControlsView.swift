@@ -145,8 +145,10 @@ class PlayerControlsView: UIView {
 
             //Volume StackView
             volumeStack.topAnchor.constraint(equalTo:  trackStackView.topAnchor),
-            volumeStack.leadingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.leadingAnchor, constant:  300),
+            volumeStack.leadingAnchor.constraint(greaterThanOrEqualTo: trackStackView.trailingAnchor, constant:  120),
             volumeStack.bottomAnchor.constraint(greaterThanOrEqualTo: trackStackView.bottomAnchor),
+            safeAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: volumeStack.trailingAnchor),
+
 
             //ProgressStackView
             progressStackView.topAnchor.constraint(lessThanOrEqualTo: trackStackView.bottomAnchor, constant: 30),
