@@ -135,9 +135,9 @@ class PlayerControlsView: UIView {
         // Setup Constraints
         NSLayoutConstraint.activate([
             // Album Title
-            albumTitle.topAnchor.constraint(equalTo: topAnchor, constant: 80),
-            albumTitle.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 140),
-            albumTitle.trailingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.trailingAnchor, constant: 30),
+
+            albumTitle.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  80),
+            albumTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant:  130),
 
             //TrackStackView
             trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 550),
@@ -152,18 +152,17 @@ class PlayerControlsView: UIView {
             progressStackView.topAnchor.constraint(lessThanOrEqualTo: trackStackView.bottomAnchor, constant: 30),
             progressStackView.leadingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.leadingAnchor, constant: 50),
             progressStackView.trailingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.trailingAnchor),
+            progressStackView.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 10),
 
             // Inside the PorgressStackView
             progressBar.widthAnchor.constraint(equalToConstant: 250),
             progressBar.heightAnchor.constraint(equalToConstant: 3),
 
             //VolumeTouchBar
-            volumeSlider.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 40),
+            volumeSlider.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 15),
             volumeSlider.leadingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.leadingAnchor, constant: 50),
             volumeSlider.widthAnchor.constraint(equalToConstant: 330),
-            volumeSlider.heightAnchor.constraint(equalToConstant: 5),
-            volumeSlider.trailingAnchor.constraint(greaterThanOrEqualTo: progressStackView.trailingAnchor),
-            progressStackView.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor)
+            volumeSlider.trailingAnchor.constraint(greaterThanOrEqualTo: progressStackView.trailingAnchor)
         ])
     }
 }
