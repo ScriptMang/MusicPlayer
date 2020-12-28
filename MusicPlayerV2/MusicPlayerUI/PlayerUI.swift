@@ -115,17 +115,19 @@ class PlayerUI: UIViewController {
             // Album Art
             albumArt.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             albumArt.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            safeAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: albumArt.trailingAnchor,  constant: 50),
+            safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: albumArt.bottomAnchor,  constant: 50),
             albumArt.heightAnchor.constraint(equalToConstant:  320),
             albumArt.widthAnchor.constraint(equalToConstant:  320),
 
             //MusicPlayer Horizontal StackView
-            musicStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 450),
+            musicStackView.topAnchor.constraint(equalTo: albumArt.bottomAnchor, constant: 20),
             musicStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  50),
             musicStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
 
             //MusicStack2
-            musicStackView2.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  460),
-            musicStackView2.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant: 250)
+            musicStackView2.topAnchor.constraint(equalTo:  albumArt.bottomAnchor, constant:  30),
+            musicStackView2.leadingAnchor.constraint(equalTo: musicStackView.trailingAnchor, constant: 58)
         ])
     }
 }

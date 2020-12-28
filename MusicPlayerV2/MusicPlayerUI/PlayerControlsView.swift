@@ -28,17 +28,15 @@ class PlayerControlsView: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  25.0)
         label.text = "Artist"
-        label.sizeToFit()
         return label
     }()
 
     private lazy var trackStackView: UIStackView = {
         let stackview = UIStackView(arrangedSubviews: [songTitle, artist])
         stackview.axis = .vertical
-        stackview.alignment = .fill
+        stackview.alignment = .leading
         stackview.distribution = .equalSpacing
-
-        stackview.spacing = 15
+        stackview.spacing = 20
         return stackview
     }()
 
@@ -70,7 +68,7 @@ class PlayerControlsView: UIView {
         let stackView = UIStackView(arrangedSubviews: [startTime, progressBar, endTime])
         stackView.axis = .horizontal
         stackView.alignment = .center
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.sizeToFit()
         return stackView
     }()
@@ -110,7 +108,6 @@ class PlayerControlsView: UIView {
         slider.tintColor = .white
         return slider
     }()
-    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -129,32 +126,28 @@ class PlayerControlsView: UIView {
             sub.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        let marginLayoutGuide = self.layoutMarginsGuide
         let safeAreaLayoutGuide = self.safeAreaLayoutGuide
 
         // Setup Constraints
         NSLayoutConstraint.activate([
             // Album Title
-
             albumTitle.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  80),
             albumTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant:  130),
 
             //TrackStackView
             trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 550),
-            trackStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  50),
+            trackStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant:  50),
 
             //Volume StackView
             volumeStack.topAnchor.constraint(equalTo:  trackStackView.topAnchor),
-            volumeStack.leadingAnchor.constraint(greaterThanOrEqualTo: trackStackView.trailingAnchor, constant:  120),
+            volumeStack.leadingAnchor.constraint(equalTo: trackStackView.trailingAnchor, constant:  120),
+            safeAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: volumeStack.trailingAnchor, constant:  10),
             volumeStack.bottomAnchor.constraint(greaterThanOrEqualTo: trackStackView.bottomAnchor),
-            safeAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: volumeStack.trailingAnchor),
-
 
             //ProgressStackView
-            progressStackView.topAnchor.constraint(lessThanOrEqualTo: trackStackView.bottomAnchor, constant: 30),
-            progressStackView.leadingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.leadingAnchor, constant: 50),
-            progressStackView.trailingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.trailingAnchor),
-            progressStackView.bottomAnchor.constraint(greaterThanOrEqualTo: safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            progressStackView.topAnchor.constraint(equalTo: trackStackView.bottomAnchor, constant: 30),
+            progressStackView.leadingAnchor.constraint(equalTo: trackStackView.leadingAnchor),
+            trailingAnchor.constraint(lessThanOrEqualTo: progressStackView.trailingAnchor),
 
             // Inside the PorgressStackView
             progressBar.widthAnchor.constraint(equalToConstant: 250),
@@ -162,9 +155,10 @@ class PlayerControlsView: UIView {
 
             //VolumeTouchBar
             volumeSlider.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 15),
-            volumeSlider.leadingAnchor.constraint(greaterThanOrEqualTo: marginLayoutGuide.leadingAnchor, constant: 50),
+            safeAreaLayoutGuide.leadingAnchor.constraint(lessThanOrEqualTo: volumeSlider.leadingAnchor, constant: 50),
             volumeSlider.widthAnchor.constraint(equalToConstant: 330),
-            volumeSlider.trailingAnchor.constraint(greaterThanOrEqualTo: progressStackView.trailingAnchor)
+            volumeSlider.trailingAnchor.constraint(equalTo: trailingAnchor, constant:  380),
+            bottomAnchor.constraint(lessThanOrEqualTo: volumeSlider.bottomAnchor, constant: 5)
         ])
     }
 }
