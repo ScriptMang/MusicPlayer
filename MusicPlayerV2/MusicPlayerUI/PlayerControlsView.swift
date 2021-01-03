@@ -104,10 +104,28 @@ class PlayerControlsView: UIView {
         slider.minimumValue = 1.0
         slider.isContinuous = true
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.backgroundColor = .darkGray
+        slider.backgroundColor = .black
         slider.tintColor = .white
+        slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+
+        UIView.animate(withDuration: 0.8) {
+            slider.setValue(80.0, animated: true)
+        }
         return slider
     }()
+
+    func delay(_ delay: Double, closure: @escaping () -> ()) {
+        let when = DispatchTime.now() + delay
+        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
+
+    }
+
+    @objc func sliderValueChanged(_ sender: UISlider!) {
+        let step: Float = 10.0
+        let approximateStepVal =  round(sender.value / step) * step
+        sender.value = approximateStepVal
+
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -131,11 +149,11 @@ class PlayerControlsView: UIView {
         // Setup Constraints
         NSLayoutConstraint.activate([
             // Album Title
-            albumTitle.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant:  80),
+            albumTitle.topAnchor.constraint(equalTo: topAnchor, constant:  80),
             albumTitle.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant:  130),
 
             //TrackStackView
-            trackStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 550),
+            trackStackView.topAnchor.constraint(equalTo: topAnchor, constant: 550),
             trackStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant:  50),
 
             //Volume StackView
