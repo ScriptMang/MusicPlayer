@@ -9,7 +9,6 @@ import UIKit
 
 class PlayerUI: UIViewController {
     //MARK: Buttons Initialization
-
     private lazy var playButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -104,12 +103,12 @@ class PlayerUI: UIViewController {
 
         NSLayoutConstraint.activate( [
             //MusicPlayer Horizontal StackView
-            controlsStackView.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 20),
-            controlsStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  50),
+            controlsStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 450),
+            controlsStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  40),
             controlsStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
 
             //MusicStack2
-            controlsStackView2.topAnchor.constraint(equalTo:  self.view.bottomAnchor, constant:  30),
+            controlsStackView2.topAnchor.constraint(equalTo:self.view.topAnchor, constant: 460),
             controlsStackView2.leadingAnchor.constraint(equalTo: controlsStackView.trailingAnchor, constant: 58)
         ])
     }

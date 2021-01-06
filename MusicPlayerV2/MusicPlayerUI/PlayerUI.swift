@@ -8,11 +8,11 @@
 import UIKit
 
 class PlayerControlsView: UIView {
-
     private lazy var albumTitle: UILabel = {
         let albumLabel = UILabel()
         albumLabel.text = "AlbumTitle"
         albumLabel.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
+        albumLabel.textAlignment = .center
         albumLabel.sizeToFit()
         return albumLabel
     }()
@@ -125,7 +125,6 @@ class PlayerControlsView: UIView {
     func delay(_ delay: Double, closure: @escaping () -> ()) {
         let when = DispatchTime.now() + delay
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
-
     }
 
     @objc func sliderValueChanged(_ sender: UISlider!) {
@@ -146,7 +145,6 @@ class PlayerControlsView: UIView {
     
     private func setupViews() {
         // Add Views
-
         for sub in [albumTitle, albumImageView, trackStackView, progressStackView, volumeStack, volumeSlider] {
             addSubview(sub)
             sub.translatesAutoresizingMaskIntoConstraints = false
@@ -154,32 +152,28 @@ class PlayerControlsView: UIView {
 
         // Setup Constraints
         NSLayoutConstraint.activate([
-            // Album Title
-            albumTitle.topAnchor.constraint(equalTo: topAnchor),
-            albumTitle.centerXAnchor.constraint(equalTo: centerXAnchor),
+            // Album Title,
+            albumTitle.leadingAnchor.constraint(equalTo:  centerXAnchor, constant: 50),
+            albumTitle.widthAnchor.constraint(equalToConstant: 320),
+            albumTitle.topAnchor.constraint(equalTo: centerYAnchor, constant: 80),
 
             // Album Art
-            albumImageView.topAnchor.constraint(equalTo: topAnchor, constant: 120),
-            albumImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
-            safeAreaLayoutGuide.trailingAnchor.constraint(lessThanOrEqualTo: albumImageView.trailingAnchor,  constant: 50),
-            safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: albumImageView.bottomAnchor,  constant: 50),
+            albumImageView.topAnchor.constraint(equalTo: albumTitle.bottomAnchor, constant: 10),
             albumImageView.heightAnchor.constraint(equalToConstant:  320),
             albumImageView.widthAnchor.constraint(equalToConstant:  320),
+            albumImageView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 50),
 
-            //TrackStackView
-            trackStackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor),
+            // TrackStackView
+            trackStackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: 100),
             trackStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:  50),
 
-            //Volume StackView
+              //Volume StackView
             volumeStack.topAnchor.constraint(equalTo:  trackStackView.topAnchor),
             volumeStack.leadingAnchor.constraint(equalTo: trackStackView.trailingAnchor, constant:  120),
-            volumeStack.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -10),
-            volumeStack.bottomAnchor.constraint(greaterThanOrEqualTo: trackStackView.bottomAnchor),
 
-            //ProgressStackView
+              //ProgressStackView
             progressStackView.topAnchor.constraint(equalTo: trackStackView.bottomAnchor, constant: 30),
             progressStackView.leadingAnchor.constraint(equalTo: trackStackView.leadingAnchor),
-            progressStackView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
 
             // Inside the PorgressStackView
             progressBar.widthAnchor.constraint(equalToConstant: 250),
@@ -187,10 +181,8 @@ class PlayerControlsView: UIView {
 
             //VolumeTouchBar
             volumeSlider.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 15),
-            volumeSlider.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 50),
+            volumeSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             volumeSlider.widthAnchor.constraint(equalToConstant: 330),
-            volumeSlider.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-            volumeSlider.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -5)
         ])
     }
 }
