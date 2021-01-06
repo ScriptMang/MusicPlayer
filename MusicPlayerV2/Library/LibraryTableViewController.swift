@@ -7,7 +7,7 @@
 
 import UIKit
 import MediaPlayer
-class LIbraryTableViewController: UITableViewController {
+class LibraryTableViewController: UITableViewController {
     let mediaFiles = MPMediaQuery.songs().items!
     var albumLst = [Song]()
 

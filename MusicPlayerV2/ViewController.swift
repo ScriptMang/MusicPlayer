@@ -22,7 +22,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
 //MARK: Push to a LibraryTableViewController
   @objc func transitionToLibraryVC() {
-    navigationController?.pushViewController(LIbraryTableViewController(), animated: false)
+    navigationController?.pushViewController(LibraryTableViewController(), animated: false)
   }
 
 }
