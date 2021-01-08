@@ -23,7 +23,6 @@ class LibraryTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -42,6 +41,33 @@ class LibraryTableViewController: UITableViewController {
         cell.tintColor = .white
         cell.setLibraryBodyCellForSongs(mediaFile)
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let musicPlyr = MPMusicPlayerController.applicationQueuePlayer
+        let selectedSongTitle = albumLst[indexPath.row].title
+        let listOfSongs =  songList()
+
+        for  songCollectionItem in listOfSongs {
+            let currentSongTitle = songCollectionItem.representativeItem!.title!
+            if currentSongTitle == selectedSongTitle  {
+                musicPlyr.setQueue(with: songCollectionItem)
+                musicPlyr.play()
+                break
+            }
+        }
+    }
+
+
+//MARK: SongList
+    func songList() -> [MPMediaItemCollection] {
+        let songQuery = MPMediaQuery.songs()
+        let tracks = songQuery.collections
+        if tracks != nil {
+            return tracks!
+        }
+        print("The songList is empty. Get this Fixed")
+        return []
     }
 
     func addAlbumsIntoLst() {
