@@ -1,38 +1,37 @@
 //
-//  PlayerControlsView.swift
+//  PlayerUIView.swift
 //  MusicPlayerV2
-//
 //  Created by Andy Peralta on 12/22/20.
 //
 
 import UIKit
-
-class PlayerControlsView: UIView {
-    private lazy var albumTitle: UILabel = {
+class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
+    lazy var albumTitleLabel: UILabel = {
         let albumLabel = UILabel()
         albumLabel.text = "AlbumTitle"
+
         albumLabel.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
         albumLabel.textAlignment = .center
         albumLabel.sizeToFit()
         return albumLabel
     }()
 
-    private lazy var albumImageView: UIImageView = {
-        let albumArtImage = UIImage(systemName: "music.note.house.fill")
+    lazy var albumImageView: UIImageView = {
+        var albumArtImage = UIImage(systemName: "music.note.house.fill")
         let imageView = UIImageView(image: albumArtImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor  = .white
         return imageView
     }()
 
-    private lazy var songTitle: UILabel = {
+    lazy var songTitleLabel: UILabel = {
         let songLabel = UILabel()
         songLabel.text = "SongTitle"
         songLabel.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
         return songLabel
     }()
 
-    private lazy var artist: UILabel = {
+    lazy var artistLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  25.0)
         label.text = "Artist"
@@ -40,7 +39,7 @@ class PlayerControlsView: UIView {
     }()
 
     private lazy var trackStackView: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [songTitle, artist])
+        let stackview = UIStackView(arrangedSubviews: [songTitleLabel, artistLabel])
         stackview.axis = .vertical
         stackview.alignment = .leading
         stackview.distribution = .equalSpacing
@@ -48,7 +47,7 @@ class PlayerControlsView: UIView {
         return stackview
     }()
 
-    private lazy var startTime: UILabel = {
+    private lazy var startTimeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  17.0)
         label.text = "0:00 "
@@ -56,7 +55,7 @@ class PlayerControlsView: UIView {
         return label
     }()
 
-    private lazy var endTime: UILabel = {
+    private lazy var endTimeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  17.0)
         label.text = " 0:00"
@@ -64,7 +63,7 @@ class PlayerControlsView: UIView {
         return label
     }()
 
-    private lazy var progressBar: UIProgressView = {
+    private lazy var progressBarView: UIProgressView = {
         let pgBar = UIProgressView(progressViewStyle: .bar)
         pgBar.progress = 0.10
         pgBar.progressTintColor = .white
@@ -73,7 +72,7 @@ class PlayerControlsView: UIView {
     }()
 
     private lazy var progressStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [startTime, progressBar, endTime])
+        let stackView = UIStackView(arrangedSubviews: [startTimeLabel, progressBarView, endTimeLabel])
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fill
@@ -90,7 +89,7 @@ class PlayerControlsView: UIView {
         return button
     }()
 
-    private lazy var volumePercentage: UILabel = {
+    private lazy var volumePercentageLabel: UILabel = {
         let label = UILabel()
         label.text = "100%"
         label.textAlignment = .center
@@ -98,7 +97,7 @@ class PlayerControlsView: UIView {
     }()
 
     private lazy var volumeStack: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [volumeButton, volumePercentage])
+        let stackview = UIStackView(arrangedSubviews: [volumeButton, volumePercentageLabel])
         stackview.axis = .vertical
         stackview.alignment = .fill
         stackview.distribution = .equalSpacing
@@ -122,6 +121,8 @@ class PlayerControlsView: UIView {
         return slider
     }()
 
+    private let controlsView = PlayerControlsView()
+
     func delay(_ delay: Double, closure: @escaping () -> ()) {
         let when = DispatchTime.now() + delay
         DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
@@ -131,7 +132,6 @@ class PlayerControlsView: UIView {
         let step: Float = 10.0
         let approximateStepVal =  round(sender.value / step) * step
         sender.value = approximateStepVal
-
     }
 
     override init(frame: CGRect) {
@@ -145,20 +145,23 @@ class PlayerControlsView: UIView {
     
     private func setupViews() {
         // Add Views
-        for sub in [albumTitle, albumImageView, trackStackView, progressStackView, volumeStack, volumeSlider] {
+        for sub in [albumTitleLabel, albumImageView, trackStackView,
+                    progressStackView, volumeStack, volumeSlider, controlsView] {
             addSubview(sub)
             sub.translatesAutoresizingMaskIntoConstraints = false
         }
 
         // Setup Constraints
         NSLayoutConstraint.activate([
+            // TODO: Setup Controls View constraints
+
             // Album Title,
-            albumTitle.leadingAnchor.constraint(equalTo:  centerXAnchor, constant: 50),
-            albumTitle.widthAnchor.constraint(equalToConstant: 320),
-            albumTitle.topAnchor.constraint(equalTo: centerYAnchor, constant: 80),
+            albumTitleLabel.leadingAnchor.constraint(equalTo:  centerXAnchor, constant: 50),
+            albumTitleLabel.widthAnchor.constraint(equalToConstant: 320),
+            albumTitleLabel.topAnchor.constraint(equalTo: centerYAnchor, constant: 80),
 
             // Album Art
-            albumImageView.topAnchor.constraint(equalTo: albumTitle.bottomAnchor, constant: 10),
+            albumImageView.topAnchor.constraint(equalTo: albumTitleLabel.bottomAnchor, constant: 10),
             albumImageView.heightAnchor.constraint(equalToConstant:  320),
             albumImageView.widthAnchor.constraint(equalToConstant:  320),
             albumImageView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 50),
@@ -176,13 +179,24 @@ class PlayerControlsView: UIView {
             progressStackView.leadingAnchor.constraint(equalTo: trackStackView.leadingAnchor),
 
             // Inside the PorgressStackView
-            progressBar.widthAnchor.constraint(equalToConstant: 250),
-            progressBar.heightAnchor.constraint(equalToConstant: 3),
+            progressBarView.widthAnchor.constraint(equalToConstant: 250),
+            progressBarView.heightAnchor.constraint(equalToConstant: 3),
 
             //VolumeTouchBar
             volumeSlider.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 15),
             volumeSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             volumeSlider.widthAnchor.constraint(equalToConstant: 330),
         ])
+    }
+
+    func tableViewController(_ viewController: LibraryTableViewController, didSelectSong song: Song) {
+        albumTitleLabel.text = song.albumTitle
+        songTitleLabel.text = song.title
+        artistLabel.text = song.artist
+        let albumImageSize = CGSize(width: albumImageView.frame.width, height: albumImageView.frame.height)
+        if let albumArt = song.albumArt?.image(at: albumImageSize) {
+          albumImageView.image = albumArt
+        } else { print("The current song's album art doesn't exist ")}
+
     }
 }

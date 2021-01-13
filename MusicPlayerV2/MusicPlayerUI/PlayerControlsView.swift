@@ -1,5 +1,5 @@
 //
-//  PlayerUI.swift
+//  PlayerControlsView.swift
 //  MusicPlayerV2
 //
 //  Created by Andy Peralta on 12/21/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlayerUI: UIViewController {
+class PlayerControlsView: UIView {
     //MARK: Buttons Initialization
     private lazy var playButton: UIButton = {
         let button = UIButton(type: .system)
@@ -76,9 +76,16 @@ class PlayerUI: UIViewController {
         return button
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupViews() {
         // StackView for Play, Forward, Backward, Pause
         let controlsStackView = UIStackView(arrangedSubviews: [rewindButton, playButton, fastForwardButton])
         controlsStackView.axis = .horizontal
@@ -86,7 +93,7 @@ class PlayerUI: UIViewController {
         controlsStackView.distribution = .fillEqually
         controlsStackView.translatesAutoresizingMaskIntoConstraints = false
         controlsStackView.spacing = 3
-        view.addSubview(controlsStackView)
+        addSubview(controlsStackView)
 
         //MARK: StackView for Song Options
         let controlsStackView2 = UIStackView(arrangedSubviews: [repeatButton, shuffleButton, queueButton])
@@ -95,20 +102,18 @@ class PlayerUI: UIViewController {
         controlsStackView2.distribution = .fillEqually
         controlsStackView2.translatesAutoresizingMaskIntoConstraints = false
         controlsStackView2.spacing = 0
-        view.addSubview(controlsStackView2)
+        addSubview(controlsStackView2)
 
-        let marginLayoutGuide = view.layoutMarginsGuide
-        let controlsView = PlayerControlsView(frame: .zero)
-        view.addSubview(controlsView)
+        let marginLayoutGuide = layoutMarginsGuide
 
         NSLayoutConstraint.activate( [
             //MusicPlayer Horizontal StackView
-            controlsStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 450),
+            controlsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 450),
             controlsStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  40),
-            controlsStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
+            controlsStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
 
             //MusicStack2
-            controlsStackView2.topAnchor.constraint(equalTo:self.view.topAnchor, constant: 460),
+            controlsStackView2.topAnchor.constraint(equalTo: topAnchor, constant: 460),
             controlsStackView2.leadingAnchor.constraint(equalTo: controlsStackView.trailingAnchor, constant: 58)
         ])
     }

@@ -5,11 +5,18 @@
 //  Created by Andy Peralta on 11/30/20.
 //
 
+protocol LibraryTableViewControllerDelegate: class {
+    func tableViewController(_ viewController: LibraryTableViewController, didSelectSong song: Song)
+}
+
 import UIKit
 import MediaPlayer
 class LibraryTableViewController: UITableViewController {
+    weak var delegate: LibraryTableViewControllerDelegate?
+
     let mediaFiles = MPMediaQuery.songs().items!
     var albumLst = [Song]()
+    var albumArtImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,22 +52,24 @@ class LibraryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let musicPlyr = MPMusicPlayerController.applicationQueuePlayer
-        let selectedSongTitle = albumLst[indexPath.row].title
-        let listOfSongs =  songList()
+        let song = albumLst[indexPath.row]
+        let tappedSongTitle = song.title
+        let mediaCollections =  getMediaCollections()
 
-        for  songCollectionItem in listOfSongs {
-            let currentSongTitle = songCollectionItem.representativeItem!.title!
-            if currentSongTitle == selectedSongTitle  {
-                musicPlyr.setQueue(with: songCollectionItem)
+        for  mediaCollection in mediaCollections {
+            let songTitle = mediaCollection.representativeItem!.title!
+            if songTitle == tappedSongTitle  {
+                delegate?.tableViewController(self, didSelectSong: song)
+                albumArtImage = mediaCollection.representativeItem?.artwork?.image(at: CGSize(width: 320, height: 320))
+                musicPlyr.setQueue(with: mediaCollection)
                 musicPlyr.play()
                 break
             }
         }
     }
 
-
-//MARK: SongList
-    func songList() -> [MPMediaItemCollection] {
+//MARK: sortedSongCollection
+    func getMediaCollections() -> [MPMediaItemCollection] {
         let songQuery = MPMediaQuery.songs()
         let tracks = songQuery.collections
         if tracks != nil {
@@ -74,6 +83,7 @@ class LibraryTableViewController: UITableViewController {
         for media in mediaFiles {
             let albumTitle = media.albumTitle ?? "AlbumTitle"
             let songTitle = media.title  ?? "SongTitle"
+            let albumArt = media.artwork
             let albumArtist = media.albumArtist ?? "AlbumArtist"
             let artist = media.albumArtist  ?? "Artist"
             let genre = media.genre  ?? "AlbumTitle"
@@ -81,7 +91,7 @@ class LibraryTableViewController: UITableViewController {
             let trackTime  = media.playbackDuration
             let track =
                 Song(albumTitle: albumTitle, title: songTitle,
-                     albumArtist: albumArtist, artist: artist,
+                     albumArt: albumArt , albumArtist: albumArtist, artist: artist,
                 genre: genre, duration: trackTime, trackCount: trackCount)
             albumLst.append(track)
         }
