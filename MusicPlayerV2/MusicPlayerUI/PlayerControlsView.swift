@@ -58,9 +58,9 @@ class PlayerControlsView: UIView {
     private lazy var queueButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
-        let shuffleButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
-        let shuffleIcon = UIImage(systemName: "shuffle", withConfiguration: shuffleButtonConfig)
-        button.setImage(shuffleIcon, for: .normal)
+        let queueButtonConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let queueIcon = UIImage(systemName: "list.dash", withConfiguration: queueButtonConfig)
+        button.setImage(queueIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
 
