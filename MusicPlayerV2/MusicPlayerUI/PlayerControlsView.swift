@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 class PlayerControlsView: UIView {
     //MARK: Buttons Initialization
     private lazy var playButton: UIButton = {
@@ -19,8 +18,10 @@ class PlayerControlsView: UIView {
 
         button.setImage(playIcon, for: .normal)
         button.setImage(pauseIcon, for: .highlighted)
+        button.isUserInteractionEnabled = true
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -31,6 +32,8 @@ class PlayerControlsView: UIView {
         let fastForwardIcon = UIImage(systemName: "forward.fill", withConfiguration: fastForwardIconConfig)
         button.setImage(fastForwardIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+
         return button
     }()
 
@@ -41,6 +44,7 @@ class PlayerControlsView: UIView {
         let rewindIcon = UIImage(systemName: "backward.fill", withConfiguration: rewindButtonIconConfig)
         button.setImage(rewindIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -52,6 +56,7 @@ class PlayerControlsView: UIView {
         let shuffleIcon = UIImage(systemName: "shuffle", withConfiguration: shuffleButtonConfig)
         button.setImage(shuffleIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(controlStack2Tapped), for: .touchUpInside)
         return button
     }()
 
@@ -62,6 +67,8 @@ class PlayerControlsView: UIView {
         let queueIcon = UIImage(systemName: "list.dash", withConfiguration: queueButtonConfig)
         button.setImage(queueIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(controlStack2Tapped), for: .touchUpInside)
+
         return button
 
     }()
@@ -73,6 +80,8 @@ class PlayerControlsView: UIView {
         let repeatIcon = UIImage(systemName: "repeat", withConfiguration: repeatButtonConfig)
         button.setImage(repeatIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(controlStack2Tapped), for: .touchUpInside)
+
         return button
     }()
 
@@ -104,17 +113,25 @@ class PlayerControlsView: UIView {
         controlsStackView2.spacing = 0
         addSubview(controlsStackView2)
 
-        let marginLayoutGuide = layoutMarginsGuide
-
         NSLayoutConstraint.activate( [
             //MusicPlayer Horizontal StackView
-            controlsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 450),
-            controlsStackView.leadingAnchor.constraint(equalTo: marginLayoutGuide.leadingAnchor, constant:  40),
-            controlsStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
+            controlsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 460),
+            controlsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            controlsStackView.trailingAnchor.constraint(equalTo: controlsStackView2.leadingAnchor, constant: -58),
+            controlsStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             //MusicStack2
-            controlsStackView2.topAnchor.constraint(equalTo: topAnchor, constant: 460),
-            controlsStackView2.leadingAnchor.constraint(equalTo: controlsStackView.trailingAnchor, constant: 58)
+            controlsStackView2.topAnchor.constraint(equalTo: topAnchor,constant: 460),
+            controlsStackView2.bottomAnchor.constraint(equalTo: bottomAnchor),
+            controlsStackView2.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+
+    @objc func buttonTapped(_ sender: UIButton) {
+        print("Button was pressed")
+    }
+
+    @objc func controlStack2Tapped(_ sender: UIButton) {
+        print("Button from controlStack2 was tapped")
     }
 }

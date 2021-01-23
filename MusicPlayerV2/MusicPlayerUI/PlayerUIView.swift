@@ -121,7 +121,6 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         return slider
     }()
 
-    private let controlsView = PlayerControlsView()
 
     func delay(_ delay: Double, closure: @escaping () -> ()) {
         let when = DispatchTime.now() + delay
@@ -142,18 +141,19 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    private let controlsView = PlayerControlsView()
+
     private func setupViews() {
-        // Add Views
-        for sub in [albumTitleLabel, albumImageView, trackStackView,
-                    progressStackView, volumeStack, volumeSlider, controlsView] {
-            addSubview(sub)
+        
+        for sub in [albumTitleLabel, albumImageView,
+        progressStackView, volumeStack,trackStackView, volumeSlider] {
             sub.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(sub)
         }
 
         // Setup Constraints
         NSLayoutConstraint.activate([
-            // TODO: Setup Controls View constraints
 
             // Album Title,
             albumTitleLabel.leadingAnchor.constraint(equalTo:  centerXAnchor, constant: 50),
@@ -166,6 +166,8 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
             albumImageView.widthAnchor.constraint(equalToConstant:  320),
             albumImageView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 50),
 
+             //ControlsView
+//            controlsView.topAnchor.constraint(equalTo: topAnchor, constant: 460),
             // TrackStackView
             trackStackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: 100),
             trackStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:  50),
@@ -197,6 +199,5 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         if let albumArt = song.albumArt?.image(at: albumImageSize) {
           albumImageView.image = albumArt
         } else { print("The current song's album art doesn't exist ")}
-
     }
 }

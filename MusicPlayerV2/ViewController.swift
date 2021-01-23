@@ -7,18 +7,21 @@
 
 import UIKit
 class ViewController: UIViewController, UINavigationControllerDelegate {
-    private lazy var libraryVC: LibraryTableViewController = {
+  private lazy var libraryVC: LibraryTableViewController = {
         let libraryVC = LibraryTableViewController()
         libraryVC.delegate = playerView
         return libraryVC
     }()
 
-    private let playerView = PlayerUIView()
+  private let playerView = PlayerUIView()
+  private let  controllerView = PlayerControlsView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     //MARK: UIObject Creation
+    controllerView.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(controllerView)
     view.addSubview(playerView)
     view.backgroundColor = .black
 
@@ -30,6 +33,5 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
   @objc func transitionToLibraryVC() {
     navigationController?.pushViewController(libraryVC, animated: false)
   }
-
 }
 

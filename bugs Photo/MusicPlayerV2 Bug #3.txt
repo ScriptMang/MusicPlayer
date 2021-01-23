@@ -1,0 +1,7 @@
+MusicPlayerV2 Bug #3
+Cells don't match their song titles
+List of Song listed under cell vs their Title
+Not all Cells will be listed but at least 5-10 will be
+
+Cell          Actual                    Displayed
+  1   "Raised By Wolves" By U2     "Abandon to Random"
