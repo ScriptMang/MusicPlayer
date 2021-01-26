@@ -143,10 +143,9 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
     }
 
     private let controlsView = PlayerControlsView()
-
     private func setupViews() {
         
-        for sub in [albumTitleLabel, albumImageView,
+        for sub in [albumTitleLabel, albumImageView, controlsView,
         progressStackView, volumeStack,trackStackView, volumeSlider] {
             sub.translatesAutoresizingMaskIntoConstraints = false
             addSubview(sub)
@@ -154,20 +153,21 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
 
         // Setup Constraints
         NSLayoutConstraint.activate([
-
             // Album Title,
-            albumTitleLabel.leadingAnchor.constraint(equalTo:  centerXAnchor, constant: 50),
+            albumTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 90),
+            albumTitleLabel.leadingAnchor.constraint(equalTo:  centerXAnchor, constant: -150),
             albumTitleLabel.widthAnchor.constraint(equalToConstant: 320),
-            albumTitleLabel.topAnchor.constraint(equalTo: centerYAnchor, constant: 80),
 
             // Album Art
             albumImageView.topAnchor.constraint(equalTo: albumTitleLabel.bottomAnchor, constant: 10),
             albumImageView.heightAnchor.constraint(equalToConstant:  320),
             albumImageView.widthAnchor.constraint(equalToConstant:  320),
-            albumImageView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 50),
+            albumImageView.leadingAnchor.constraint(equalTo: centerXAnchor, constant: -160),
 
              //ControlsView
-//            controlsView.topAnchor.constraint(equalTo: topAnchor, constant: 460),
+            controlsView.topAnchor.constraint(equalTo: topAnchor, constant: 460),
+            controlsView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+
             // TrackStackView
             trackStackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: 100),
             trackStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:  50),

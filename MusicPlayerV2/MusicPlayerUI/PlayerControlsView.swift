@@ -115,13 +115,13 @@ class PlayerControlsView: UIView {
 
         NSLayoutConstraint.activate( [
             //MusicPlayer Horizontal StackView
-            controlsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 460),
-            controlsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            controlsStackView.topAnchor.constraint(equalTo: topAnchor),
+            controlsStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             controlsStackView.trailingAnchor.constraint(equalTo: controlsStackView2.leadingAnchor, constant: -58),
             controlsStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             //MusicStack2
-            controlsStackView2.topAnchor.constraint(equalTo: topAnchor,constant: 460),
+            controlsStackView2.topAnchor.constraint(equalTo: topAnchor),
             controlsStackView2.bottomAnchor.constraint(equalTo: bottomAnchor),
             controlsStackView2.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])

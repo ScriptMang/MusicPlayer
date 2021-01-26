@@ -1,0 +1,10 @@
+Title: Buttons don't Respond to Touch
+Date: 01/22/2021
+
+In the MusicPlayer I would press play or any other button but no response.
+The main ViewController didn't trickle down the touch response. 
+I tried looking for a UIView that was covering the button but there wasn't any.
+Tried adding the UIView that contained the button as a subview of the main View 
+controller and it worked. However,  I wanted to know why the 
+previous implementation didn't work. It turns out the PlayerUIView had a frame of zero. 
+So the button couldn't trickle down its response. Problem was fixed by giving the frame a size/constraints.

@@ -14,19 +14,26 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
     }()
 
   private let playerView = PlayerUIView()
-  private let  controllerView = PlayerControlsView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     //MARK: UIObject Creation
-    controllerView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(controllerView)
+    playerView.translatesAutoresizingMaskIntoConstraints = false
+
     view.addSubview(playerView)
     view.backgroundColor = .black
 
     navigationItem.leftBarButtonItem =
         UIBarButtonItem(title: "Library", style: .plain, target: self, action: #selector(transitionToLibraryVC))
+
+    NSLayoutConstraint.activate([
+        //PlayerViewFrame
+        playerView.heightAnchor.constraint(equalToConstant: self.view.frame.height),
+        playerView.widthAnchor.constraint(equalToConstant: self.view.frame.width)
+    ])
+
+
   }
 
 //MARK: Push to a LibraryTableViewController
