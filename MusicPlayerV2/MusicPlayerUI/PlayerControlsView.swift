@@ -6,22 +6,22 @@
 //
 
 import UIKit
-class PlayerControlsView: UIView {
+import MediaPlayer
+class PlayerControlsView: UIView, PlayerUIViewDelegate {
+
     //MARK: Buttons Initialization
     private lazy var playButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = .white
-
+        let button = UIButton(type: .custom)
         let playIconConfig = UIImage.SymbolConfiguration(pointSize: 40)
         let playIcon = UIImage(systemName: "play.fill", withConfiguration: playIconConfig)
         let pauseIcon = UIImage(systemName: "pause.fill",  withConfiguration: playIconConfig)
-
         button.setImage(playIcon, for: .normal)
-        button.setImage(pauseIcon, for: .highlighted)
-        button.isUserInteractionEnabled = true
+        button.setImage(pauseIcon, for: .selected)
+        button.tintColor = .white
         button.clipsToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+
         return button
     }()
 
@@ -32,7 +32,7 @@ class PlayerControlsView: UIView {
         let fastForwardIcon = UIImage(systemName: "forward.fill", withConfiguration: fastForwardIconConfig)
         button.setImage(fastForwardIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(fastForwardButtonTapped), for: .touchUpInside)
 
         return button
     }()
@@ -44,7 +44,8 @@ class PlayerControlsView: UIView {
         let rewindIcon = UIImage(systemName: "backward.fill", withConfiguration: rewindButtonIconConfig)
         button.setImage(rewindIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(rewindButtonTapped), for: .touchUpInside)
+
         return button
     }()
 
@@ -57,6 +58,7 @@ class PlayerControlsView: UIView {
         button.setImage(shuffleIcon, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(controlStack2Tapped), for: .touchUpInside)
+
         return button
     }()
 
@@ -102,6 +104,7 @@ class PlayerControlsView: UIView {
         controlsStackView.distribution = .fillEqually
         controlsStackView.translatesAutoresizingMaskIntoConstraints = false
         controlsStackView.spacing = 3
+        controlsStackView.clipsToBounds = true
         addSubview(controlsStackView)
 
         //MARK: StackView for Song Options
@@ -127,8 +130,30 @@ class PlayerControlsView: UIView {
         ])
     }
 
-    @objc func buttonTapped(_ sender: UIButton) {
+    func songIsSelected() {
+        playButton.isSelected = true
+    }
+    
+    @objc func playButtonTapped(_ sender: UIButton) {
+        let applicationPlayer =
+            MPMusicPlayerController.applicationMusicPlayer
+        if sender.isSelected == true {
+            print("Stop the song")
+            sender.isSelected = false
+            applicationPlayer.pause()
+        } else {
+            print("Play the song")
+            sender.isSelected = true
+            applicationPlayer.play()
+        }
+    }
+
+    @objc func rewindButtonTapped(_ sender: UIButton) {
         print("Button was pressed")
+    }
+
+    @objc func fastForwardButtonTapped(_ sender: UIButton) {
+        print("fastForwardButton was true")
     }
 
     @objc func controlStack2Tapped(_ sender: UIButton) {

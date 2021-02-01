@@ -3,9 +3,14 @@
 //  MusicPlayerV2
 //  Created by Andy Peralta on 12/22/20.
 //
+protocol PlayerUIViewDelegate: class {
+    func songIsSelected()
+}
 
 import UIKit
 class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
+    weak var delegate: PlayerUIViewDelegate?
+
     lazy var albumTitleLabel: UILabel = {
         let albumLabel = UILabel()
         albumLabel.text = "AlbumTitle"
@@ -143,8 +148,9 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
     }
 
     private let controlsView = PlayerControlsView()
+
     private func setupViews() {
-        
+        delegate = controlsView
         for sub in [albumTitleLabel, albumImageView, controlsView,
         progressStackView, volumeStack,trackStackView, volumeSlider] {
             sub.translatesAutoresizingMaskIntoConstraints = false
@@ -199,5 +205,6 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         if let albumArt = song.albumArt?.image(at: albumImageSize) {
           albumImageView.image = albumArt
         } else { print("The current song's album art doesn't exist ")}
+        delegate?.songIsSelected()
     }
 }
