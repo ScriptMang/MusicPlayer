@@ -32,14 +32,18 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
     lazy var songTitleLabel: UILabel = {
         let songLabel = UILabel()
         songLabel.text = "SongTitle"
-        songLabel.font = UIFont(name: "Hiragino Mincho ProN W3", size:  30.0)
+        songLabel.font = UIFont(name: "Hiragino Mincho ProN W3", size:  25.0)
+        songLabel.translatesAutoresizingMaskIntoConstraints = false
+        songLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         return songLabel
     }()
 
     lazy var artistLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  25.0)
+        label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  20.0)
         label.text = "Artist"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.sizeToFit()
         return label
     }()
 
@@ -47,8 +51,8 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         let stackview = UIStackView(arrangedSubviews: [songTitleLabel, artistLabel])
         stackview.axis = .vertical
         stackview.alignment = .leading
-        stackview.distribution = .equalSpacing
-        stackview.spacing = 20
+        stackview.distribution = .fillEqually
+        stackview.spacing = 10
         return stackview
     }()
 
@@ -159,7 +163,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
 
         // Setup Constraints
         NSLayoutConstraint.activate([
-            // Album Title,
+            // Album Title
             albumTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 90),
             albumTitleLabel.leadingAnchor.constraint(equalTo:  centerXAnchor, constant: -150),
             albumTitleLabel.widthAnchor.constraint(equalToConstant: 320),
@@ -175,12 +179,13 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
             controlsView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
 
             // TrackStackView
-            trackStackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: 100),
+            trackStackView.topAnchor.constraint(equalTo: albumImageView.bottomAnchor, constant: 80),
             trackStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:  50),
+            trackStackView.heightAnchor.constraint(equalToConstant:  100),
 
               //Volume StackView
             volumeStack.topAnchor.constraint(equalTo:  trackStackView.topAnchor),
-            volumeStack.leadingAnchor.constraint(equalTo: trackStackView.trailingAnchor, constant:  120),
+            volumeStack.trailingAnchor.constraint(equalTo: controlsView.trailingAnchor),
 
               //ProgressStackView
             progressStackView.topAnchor.constraint(equalTo: trackStackView.bottomAnchor, constant: 30),
@@ -201,6 +206,8 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         albumTitleLabel.text = song.albumTitle
         songTitleLabel.text = song.title
         artistLabel.text = song.artist
+        artistLabel.sizeToFit()
+
         let albumImageSize = CGSize(width: albumImageView.frame.width, height: albumImageView.frame.height)
         if let albumArt = song.albumArt?.image(at: albumImageSize) {
           albumImageView.image = albumArt
