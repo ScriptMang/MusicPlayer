@@ -29,6 +29,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate {
 
     NSLayoutConstraint.activate([
         //PlayerViewFrame
+        playerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+        playerView.topAnchor.constraint(equalTo: self.view.topAnchor),
+        playerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        playerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+
         playerView.heightAnchor.constraint(equalToConstant: self.view.frame.height),
         playerView.widthAnchor.constraint(equalToConstant: self.view.frame.width)
     ])
