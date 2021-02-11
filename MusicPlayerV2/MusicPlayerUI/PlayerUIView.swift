@@ -60,6 +60,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         let label = UILabel()
         label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  17.0)
         label.text = "0:00 "
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
         return label
     }()
@@ -68,6 +69,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         let label = UILabel()
         label.font = UIFont(name: "Hiragino Mincho ProN W3", size:  17.0)
         label.text = " 0:00"
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.sizeToFit()
         return label
     }()
@@ -85,6 +87,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fill
+        stackView.spacing = 2
         stackView.sizeToFit()
         return stackView
     }()
@@ -190,9 +193,11 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
               //ProgressStackView
             progressStackView.topAnchor.constraint(equalTo: trackStackView.bottomAnchor, constant: 30),
             progressStackView.leadingAnchor.constraint(equalTo: trackStackView.leadingAnchor),
+            progressStackView.widthAnchor.constraint(equalToConstant: 320),
+            progressStackView.heightAnchor.constraint(equalToConstant: 20),
+
 
             // Inside the PorgressStackView
-            progressBarView.widthAnchor.constraint(equalToConstant: 250),
             progressBarView.heightAnchor.constraint(equalToConstant: 3),
 
             //VolumeTouchBar
@@ -207,6 +212,12 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         songTitleLabel.text = song.title
         artistLabel.text = song.artist
         artistLabel.sizeToFit()
+        let songDuration =  (song.duration! / 60)
+        print("The song duration is explicitly: ", songDuration)
+        let  roundedDuration  =  round(songDuration * 100) / 100
+        print("The rounded duration is: ", roundedDuration)
+        endTimeLabel.text = roundedDuration.description.replacingOccurrences(of: ".", with: ":")
+
 
         let albumImageSize = CGSize(width: albumImageView.frame.width, height: albumImageView.frame.height)
         if let albumArt = song.albumArt?.image(at: albumImageSize) {
