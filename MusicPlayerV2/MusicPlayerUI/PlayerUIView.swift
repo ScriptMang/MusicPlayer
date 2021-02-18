@@ -8,6 +8,7 @@ protocol PlayerUIViewDelegate: class {
 }
 
 import UIKit
+import MediaPlayer
 class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
     weak var delegate: PlayerUIViewDelegate?
 
@@ -208,21 +209,47 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
     }
 
     func tableViewController(_ viewController: LibraryTableViewController, didSelectSong song: Song) {
+        // Show the right album art for the song
         albumTitleLabel.text = song.albumTitle
         songTitleLabel.text = song.title
         artistLabel.text = song.artist
         artistLabel.sizeToFit()
-        let songDuration =  (song.duration! / 60)
-        print("The song duration is explicitly: ", songDuration)
-        let  roundedDuration  =  round(songDuration * 100) / 100
-        print("The rounded duration is: ", roundedDuration)
-        endTimeLabel.text = roundedDuration.description.replacingOccurrences(of: ".", with: ":")
-
 
         let albumImageSize = CGSize(width: albumImageView.frame.width, height: albumImageView.frame.height)
         if let albumArt = song.albumArt?.image(at: albumImageSize) {
           albumImageView.image = albumArt
         } else { print("The current song's album art doesn't exist ")}
+
+        //Calculate Track Time and Song Duration
+        let songDuration =  (song.duration! / 60)
+        let  roundedDuration  =  round(songDuration * 100) / 100
+        let stringDescription = String(format: "%.2f", roundedDuration)
+        print("The rounded duration is: ", stringDescription)
+        endTimeLabel.text = stringDescription.description.replacingOccurrences(of: ".", with: ":")
+
+        //progressview change
+        let timer = Timer.scheduledTimer(timeInterval: 1/60, target: self, selector: #selector(timeFired), userInfo: nil, repeats: true)
+        timer.tolerance = 0.1
+
+        // trigger to change play icon to pause when tableview cell is selected
         delegate?.songIsSelected()
+    }
+
+
+    @objc func timeFired(_: Any) {
+        let player =  MPMusicPlayerController.applicationMusicPlayer
+        guard let item = player.nowPlayingItem,
+        player.playbackState != .stopped else {
+            self.progressBarView.isHidden = true
+            return
+        }
+        self.progressBarView.isHidden = false
+
+        let currentTime = player.currentPlaybackTime
+        let seconds = Int(currentTime) % 60
+        let minutes = Int(currentTime)/60
+        self.startTimeLabel.text = String(format: "%02d:%02d", minutes, seconds)
+        let songDuration = item.playbackDuration 
+        self.progressBarView.progress = Float(currentTime/songDuration)
     }
 }
