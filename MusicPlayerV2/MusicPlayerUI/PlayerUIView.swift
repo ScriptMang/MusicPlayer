@@ -118,33 +118,13 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         return stackview
     }()
 
-    private lazy var volumeSlider: UISlider = {
-        let slider = UISlider()
-        slider.maximumValue = 100.0
-        slider.minimumValue = 1.0
-        slider.isContinuous = true
+    private lazy var volumeSlider: MPVolumeView = {
+        let slider = MPVolumeView()
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.backgroundColor = .black
         slider.tintColor = .white
-        slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
-
-        UIView.animate(withDuration: 0.8) {
-            slider.setValue(80.0, animated: true)
-        }
         return slider
     }()
-
-
-    func delay(_ delay: Double, closure: @escaping () -> ()) {
-        let when = DispatchTime.now() + delay
-        DispatchQueue.main.asyncAfter(deadline: when, execute: closure)
-    }
-
-    @objc func sliderValueChanged(_ sender: UISlider!) {
-        let step: Float = 10.0
-        let approximateStepVal =  round(sender.value / step) * step
-        sender.value = approximateStepVal
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -205,6 +185,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
             volumeSlider.topAnchor.constraint(equalTo: progressStackView.bottomAnchor, constant: 15),
             volumeSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             volumeSlider.widthAnchor.constraint(equalToConstant: 330),
+            volumeSlider.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
 
@@ -228,7 +209,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         endTimeLabel.text = stringDescription.description.replacingOccurrences(of: ".", with: ":")
 
         //progressview change
-        let timer = Timer.scheduledTimer(timeInterval: 1/60, target: self, selector: #selector(timeFired), userInfo: nil, repeats: true)
+        let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeFired), userInfo: nil, repeats: true)
         timer.tolerance = 0.1
 
         // trigger to change play icon to pause when tableview cell is selected
@@ -248,7 +229,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         let currentTime = player.currentPlaybackTime
         let seconds = Int(currentTime) % 60
         let minutes = Int(currentTime)/60
-        self.startTimeLabel.text = String(format: "%02d:%02d", minutes, seconds)
+        self.startTimeLabel.text = String(format: "%2d:%02d", minutes, seconds)
         let songDuration = item.playbackDuration 
         self.progressBarView.progress = Float(currentTime/songDuration)
     }
