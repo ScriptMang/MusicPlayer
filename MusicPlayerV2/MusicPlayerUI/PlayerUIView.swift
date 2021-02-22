@@ -93,31 +93,6 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
         return stackView
     }()
 
-    private lazy var volumeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.tintColor = .white
-        let volumeButtonConfig = UIImage.SymbolConfiguration(pointSize: 32)
-        let volumeIcon = UIImage(systemName: "speaker.wave.2.circle", withConfiguration: volumeButtonConfig)
-        button.setImage(volumeIcon, for: .normal)
-        return button
-    }()
-
-    private lazy var volumePercentageLabel: UILabel = {
-        let label = UILabel()
-        label.text = "100%"
-        label.textAlignment = .center
-        return label
-    }()
-
-    private lazy var volumeStack: UIStackView = {
-        let stackview = UIStackView(arrangedSubviews: [volumeButton, volumePercentageLabel])
-        stackview.axis = .vertical
-        stackview.alignment = .fill
-        stackview.distribution = .equalSpacing
-        stackview.spacing = 15
-        return stackview
-    }()
-
     private lazy var volumeSlider: MPVolumeView = {
         let slider = MPVolumeView()
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -136,11 +111,10 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
     }
 
     private let controlsView = PlayerControlsView()
-
     private func setupViews() {
         delegate = controlsView
         for sub in [albumTitleLabel, albumImageView, controlsView,
-        progressStackView, volumeStack,trackStackView, volumeSlider] {
+            progressStackView,trackStackView, volumeSlider] {
             sub.translatesAutoresizingMaskIntoConstraints = false
             addSubview(sub)
         }
@@ -167,11 +141,7 @@ class PlayerUIView: UIView, LibraryTableViewControllerDelegate {
             trackStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:  50),
             trackStackView.heightAnchor.constraint(equalToConstant:  100),
 
-              //Volume StackView
-            volumeStack.topAnchor.constraint(equalTo:  trackStackView.topAnchor),
-            volumeStack.trailingAnchor.constraint(equalTo: controlsView.trailingAnchor),
-
-              //ProgressStackView
+            //ProgressStackView
             progressStackView.topAnchor.constraint(equalTo: trackStackView.bottomAnchor, constant: 30),
             progressStackView.leadingAnchor.constraint(equalTo: trackStackView.leadingAnchor),
             progressStackView.widthAnchor.constraint(equalToConstant: 320),
